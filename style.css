@@ -1,0 +1,1237 @@
+:root {
+
+    --bg-dark: #1e2129;
+
+    --bg-light: #f4f7f6;
+
+    --sidebar-active: #1db954;
+
+    --card-green: #2ecc71;
+
+    --card-blue: #3498db;
+
+    --card-purple: #9b59b6;
+
+    --card-orange: #e67e22;
+
+    --card-red: #e74c3c;
+
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+
+
+body {
+    background-color: var(--bg-light);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* MEMATIKAN SCROLL UTAMA BROWSER */
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    /* MEMASTIKAN ANAKNYA TIDAK TUMPAH */
+}
+
+
+
+/* Sidebar Styling */
+
+.sidebar {
+    width: 250px;
+    background: var(--bg-dark);
+    color: white;
+    padding: 20px 0;
+}
+
+.sidebar .logo {
+    padding: 0 20px 30px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.sidebar li:hover {
+    background: #2c313c;
+}
+
+.sidebar li.active {
+    background: var(--sidebar-active);
+}
+
+
+
+/* Main Content */
+
+.content {
+    flex: 1;
+    padding: 40px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+}
+
+.header p {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+
+
+/* Balance Card */
+
+.balance-card {
+    background: #1a8e48;
+    color: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.balance-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 20px;
+}
+
+.balance-main h2 {
+    font-size: 2.5rem;
+    margin-top: 10px;
+}
+
+.balance-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+
+
+/* Grid Cards */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card i {
+    font-size: 2.5rem;
+    color: white;
+    display: block;
+    padding: 40px 0 20px;
+}
+
+.card h3 {
+    color: white;
+    padding-bottom: 40px;
+    font-size: 1.5rem;
+}
+
+.card p {
+    padding: 15px;
+    background: white;
+    color: #666;
+    font-size: 0.85rem;
+    border-top: 1px solid #eee;
+}
+
+
+
+/* Card Colors */
+
+.green {
+    background: var(--card-green);
+}
+
+.blue {
+    background: var(--card-blue);
+}
+
+.purple {
+    background: var(--card-purple);
+}
+
+.orange {
+    background: var(--card-orange);
+}
+
+.red {
+    background: var(--card-red);
+}
+
+
+
+.search-box {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 200px;
+}
+
+/* Keep your existing CSS and ADD these below */
+
+.app-page {
+    animation: fadeIn 0.3s ease;
+    height: 100%;
+    overflow-y: auto;
+    /* Memaksa scroll aktif jika konten panjang */
+    padding-bottom: 80px;
+    /* Ruang agar tidak tertutup navbar bawah */
+    -webkit-overflow-scrolling: touch;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    background: var(--sidebar-active);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-btn {
+    background: var(--sidebar-active);
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.user-btn:hover {
+    background: #159443;
+    transform: scale(1.05);
+}
+
+/* Kasir Grid */
+.kasir-layout {
+    display: flex;
+    gap: 20px;
+    text-align: center;
+}
+
+.produk-list {
+    flex: 2;
+}
+
+.keranjang {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    height: fit-content;
+}
+
+.grid-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.item-card-mini {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    text-align: center;
+}
+
+.item-card-mini:hover {
+    border-color: var(--sidebar-active);
+}
+
+.kasir-btn {
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 4px 12px;
+    margin: 0 2px;
+    border: none;
+    border-radius: 5px;
+    background: #eee;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+
+.kasir-btn:hover {
+    background: #1db954;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.kasir-btn.hapus {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.kasir-btn.hapus:hover {
+    background: #c0392b;
+    color: #fff;
+}
+
+.card.kasir-produk-card,
+.card.kasir-produk-card * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.card.kasir-produk-card {
+    border: #1db954 3px solid;
+}
+
+/* Style Tombol Kuning Bercahaya */
+.btn-coming-soon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #f1c40f, #f39c12);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.6);
+    transition: all 0.3s ease;
+    animation: glowing 1.5s infinite;
+}
+
+.btn-coming-soon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(241, 196, 15, 0.9);
+}
+
+/* Animasi Cahaya (Shining) */
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px #f1c40f;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #f1c40f;
+    }
+
+    100% {
+        box-shadow: 0 0 5px #f1c40f;
+    }
+}
+
+/* Overlay Modal (Latar Belakang Gelap) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    /* Sembunyi secara default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Konten Modal */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Tombol Cancel (X) */
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+}
+
+.close-icon:hover {
+    color: #e74c3c;
+}
+
+/* List Fitur */
+.feature-list {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.feature-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+}
+
+.update-text {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* Logika Buka Modal (Tanpa JS) */
+#modal-toggle:checked~.modal-overlay {
+    display: flex;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 1. Tombol Kuning Bercahaya (Shiny Button) */
+.shiny-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #f1c40f;
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 0 10px #f1c40f;
+    transition: 0.3s;
+    animation: shiny-glow 2s infinite;
+    margin-left: 80%;
+    margin-top: 2%;
+}
+
+@keyframes shiny-glow {
+    0% {
+        box-shadow: 0 0 5px #f1c40f;
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px #f1c40f;
+        transform: scale(1.02);
+    }
+
+    100% {
+        box-shadow: 0 0 5px #f1c40f;
+        transform: scale(1);
+    }
+}
+
+/* 2. Overlay (Latar Belakang Gelap) */
+.cs-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    display: none;
+    /* Sembunyi */
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+/* 3. Window Modal */
+.cs-window {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Tombol Cancel (X) */
+.cs-cancel-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.cs-cancel-btn:hover {
+    color: #e74c3c;
+}
+
+/* 4. Konten & List */
+.cs-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.cs-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.cs-header small {
+    color: #888;
+}
+
+.cs-list {
+    list-style: none;
+    /* Menghilangkan titik/bintang */
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    /* Rata kiri normal */
+}
+
+.cs-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f9f9f9;
+    color: #444;
+    font-size: 1.05em;
+}
+
+/* Logika Buka Tutup Window */
+#coming-soon-toggle:checked~.cs-overlay {
+    display: flex;
+}
+
+/* Mengunci seluruh website agar tidak bisa diblok teksnya dan tidak bisa di-klik kanan */
+body {
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 dan 11 */
+    user-select: none;
+    /* Standar (Chrome, Firefox, Opera) */
+
+    /* Menghilangkan menu klik kanan / seleksi di HP Android/iOS */
+    -webkit-touch-callout: none;
+
+    /* Opsional: Jika ingin benar-benar tidak bisa diklik sama sekali */
+    /* pointer-events: none; */
+}
+
+/* Kecilkan pengecualian: Biarkan kolom input tetap bisa diketik */
+input,
+textarea {
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    pointer-events: auto !important;
+}
+
+/*piutang list*/
+/* Container untuk daftar piutang */
+#piutang-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Ukuran kartu medium */
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Penyesuaian kartu agar seragam di dalam grid */
+.piutang-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+    /* Tinggi kartu sedang */
+    position: relative;
+    border-left: 5px solid #ccc;
+}
+
+.piutang-card.lunas {
+    border-left: 5px solid #2ecc71;
+}
+
+/*navbar piutang*/
+.notif-badge {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4757;
+    /* Red color */
+    border-radius: 50%;
+    display: none;
+    /* Hidden by default */
+    border: 2px solid #1a1c23;
+    /* Matches sidebar bg to look clean */
+    box-shadow: 0 0 5px rgba(255, 71, 87, 0.5);
+}
+
+/*navbar piutang ui notif red */
+.count-badge {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: #e74c3c;
+    /* Red */
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    /* Circle */
+    display: none;
+    /* Hidden if 0 */
+    border: 2px solid #f7f8f9;
+    /* Matches sidebar background */
+}
+
+/* Notification Stack */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notif-card button:hover {
+    filter: brightness(90%);
+}
+
+/*laci*/
+/* Main Drawer Container */
+#notif-laci {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+    height: 75vh;
+    background: #ffffff;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9999;
+    border-radius: 20px 0 0 20px;
+    display: none;
+    /* Only shows when debts exist */
+}
+
+/* Hidden State */
+#notif-laci.laci-closed {
+    right: -320px;
+}
+
+/* Half-Circle Handle */
+#laci-handle {
+    position: absolute;
+    left: -45px;
+    top: 30px;
+    width: 45px;
+    height: 90px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 50px 0 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#laci-count {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#laci-content {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Debt Card Styling */
+.notif-card-laci {
+    background: #fdfdfd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 6px solid #e74c3c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+    border-top: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+/* Button Sizes */
+.btn-med {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-med:hover {
+    opacity: 0.9;
+}
+
+/* Container for the Drawer */
+#notif-laci {
+    position: fixed;
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 320px;
+    height: 70vh;
+    background: #ffffff;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
+    transition: right 0.4s ease-in-out;
+    z-index: 9999;
+    border-radius: 20px 0 0 20px;
+    display: none;
+}
+
+#notif-laci.laci-closed {
+    right: -320px;
+}
+
+#laci-handle {
+    position: absolute;
+    left: -45px;
+    top: 20px;
+    width: 45px;
+    height: 80px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 40px 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Visibility Fix for Cards */
+.notif-card-laci {
+    background: #f8f9fa;
+    /* Light grey background so cards are visible */
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #e74c3c;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#laci-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+#laci-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* Animasi Ayunan Saat Dragging */
+/* Style untuk kartu asli yang masih tertinggal di layar */
+/* Efek Blur untuk seluruh halaman kecuali Trash Zone */
+/* Efek kartu yang tertinggal di layar saat ditarik */
+/* Efek Blur untuk seluruh aplikasi */
+/* Lapisan Blur yang muncul saat drag */
+/* Kartu yang sedang dipegang (di kursor) */
+/* Kartu yang sedang dipegang (di kursor) */
+.ghost-vivid {
+    width: 320px;
+    background: white !important;
+    opacity: 0.7 !important;
+    border: 2px solid #3498db !important;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform-origin: top center !important;
+    animation: hanging-swing 1.2s infinite ease-in-out !important;
+}
+
+/* Kartu asli di grid yang tetap tajam */
+.card-selected {
+    position: relative !important;
+    z-index: 9999 !important;
+    /* Wajib lebih besar dari 9998 */
+    background: white !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(52, 152, 219, 1) !important;
+    transition: all 0.2s ease;
+}
+
+@keyframes hanging-swing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(8deg);
+    }
+
+    75% {
+        transform: rotate(-8deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+#blur-overlay {
+    /* ... kode lainnya ... */
+    transition: opacity 0.3s ease;
+}
+
+.card-selected {
+    /* ... kode lainnya ... */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Status piutang dilunaskan oleh */
+.status-lunas-detail {
+    font-size: 10px;
+    color: #27ae60;
+    background: #eafaf1;
+    padding: 4px 8px;
+    border-radius: 5px;
+    margin-top: 8px;
+    display: inline-block;
+    border: 1px solid #2ecc71;
+}
+
+/* Latar belakang gelap dan buram */
+/* Overlay dengan efek blur */
+#produk-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* Background gelap transparan */
+    backdrop-filter: blur(5px);
+    /* EFEK BLUR */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ukuran Jendela Modal (Medium) */
+.modal-content-box {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    /* Ukuran Medium */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Pastikan tombol tambah memiliki z-index yang sangat tinggi */
+.tambah-produk-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 998;
+    /* Harus sedikit di bawah modal (999) tapi di atas konten lain */
+    background: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/*forreacent produk render */
+@keyframes flyUpAndFade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(1.3);
+    }
+}
+
+#master-produk-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    align-items: stretch;
+}
+
+.product-card-new:hover {
+    transform: translateY(-5px);
+}
+
+.app-page {
+    /* Pastikan scroll hanya terjadi di dalam elemen ini jika perlu */
+    -webkit-overflow-scrolling: touch;
+}
+
+/*new feature */
+.badge-status {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.st-biru {
+    background: #3498db;
+}
+
+/* Diambil */
+.st-kuning {
+    background: #f1c40f;
+}
+
+/* Belum */
+.st-oranye {
+    background: #e67e22;
+}
+
+/* Pinjam */
+.st-abu {
+    background: #95a5a6;
+}
+
+/* Tukar */
+.st-hijau {
+    background: #2ecc71;
+}
+
+/* Lunas */
+.st-merah {
+    background: #e74c3c;
+}
+
+/* Hutang */
+
+/* coin page */
+/* Pastikan tombol koin punya ukuran tetap dan tidak tumpang tindih */
+.btn-aksi-koin {
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.1s active;
+    z-index: 10;
+    /* Memastikan tombol di atas layer lain */
+}
+
+.btn-aksi-koin:active {
+    transform: scale(0.95);
+}
+
+.koin-card {
+    border-left: 5px solid #f1c40f;
+    min-height: 120px;
+    /* Menjaga ukuran kartu tetap stabil */
+}
+
+/* refresh */
+body {
+    overscroll-behavior-y: hidden;
+    /* Mencegah refresh bawaan browser */
+}
+
+/*laste mate user welcome */
+
+.welcome-container {
+    background: #fff0f3;
+    border: 4px solid #ff85a2;
+    box-shadow: 6px 6px 0px #ff4d6d;
+    padding: 15px;
+    margin: 20px auto 40px auto;
+    max-width: 300px;
+    text-align: center;
+}
+
+.pixel-label {
+    display: block;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    color: #ff4d6d;
+    margin-bottom: 8px;
+}
+
+.welcome-section {
+    margin-top: 60px;
+    /* Menurunkan posisi papan nama */
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Kartu Papan Nama Pinky Pixel */
+.welcome-card {
+    display: inline-block;
+    background: #fff0f3;
+    border: 5px solid #ff85a2;
+    /* Border lebih tebal */
+    box-shadow: 8px 8px 0px #ff4d6d;
+    /* Bayangan lebih besar */
+    padding: 25px 40px;
+    /* Padding lebih luas */
+    margin-bottom: 0px;
+    /* Jarak ke tombol COMING SOON */
+}
+
+#welcome-user {
+    font-family: sans-serif;
+    font-size: 30px;
+    /* Ukuran teks lebih besar */
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Memperbaiki Shiny Button agar senada */
+.shiny-btn {
+    background: #ff85a2;
+    color: white;
+    font-size: 10px;
+    padding: 12px 20px;
+    border: 3px solid #ff4d6d;
+    cursor: pointer;
+    display: inline-block;
+    transition: 0.2s;
+    top: 100px;
+}
+
+.shiny-btn:hover {
+    transform: scale(1.1);
+    background: #ff4d6d;
+}
+
+/* Container Header */
+.header-premium {
+    position: sticky;
+    /* Fixed is better for 'sticking' to the top in mobile apps */
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Reduce vertical padding to the absolute minimum */
+    padding: 2px 15px;
+    height: 70px;
+    /* Allow it to shrink to its content */
+    min-height: 40px;
+    /* Optional: set a very low minimum height */
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    margin-bottom: 5px;
+}
+
+/* Bagian Welcome */
+.welcome-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-circle {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+}
+
+.welcome-text small {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.welcome-text h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Tombol Ganti Kasir */
+.action-btn-mini {
+    flex-direction: row;
+    background: white;
+    color: #27ae60;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-weight: 700;
+    font-size: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.action-btn-mini:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+.action-btn-mini i {
+    font-size: 14px;
+}
+
+/* Biar Dashboard Gak Ketutup */
+#page-saldo {
+    padding-top: 0;
+    /* Header sekarang nempel di atas */
+}
