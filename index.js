@@ -3809,3 +3809,52 @@ document.addEventListener('click', function (event) {
     }
 });
 //the rest
+//cloud
+
+async function simpanKeCloud() {
+    const dataWarungan = {
+        daftarProduk,
+        saldoUtama,
+        daftarTransaksi,
+        daftarPiutang,
+        galonData,
+        gasData,
+        koinData,
+        logKasMutasi
+    };
+
+    try {
+        await fetch('/api/data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataWarungan)
+        });
+        console.log("☁️ Berhasil Sinkron!");
+    } catch (err) {
+        console.error("☁️ Gagal Sinkron:", err);
+    }
+}
+
+window.addEventListener('load', async () => {
+    try {
+        const res = await fetch('/api/data');
+        const dataAwan = await res.json();
+        
+        if (dataAwan && dataAwan.daftarProduk) {
+            daftarProduk = dataAwan.daftarProduk;
+            saldoUtama = dataAwan.saldoUtama;
+            daftarTransaksi = dataAwan.daftarTransaksi;
+            daftarPiutang = dataAwan.daftarPiutang;
+            galonData = dataAwan.galonData;
+            gasData = dataAwan.gasData;
+            koinData = dataAwan.koinData;
+            logKasMutasi = dataAwan.logKasMutasi;
+
+            simpanSemuaData(); // Save to local storage
+            renderProduk();    // Refresh the screen
+            console.log("✅ Data Cloud Dimuat!");
+        }
+    } catch (e) {
+        console.log("⚠️ Pakai data lokal (Offline).");
+    }
+});
