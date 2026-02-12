@@ -221,10 +221,11 @@ body {
 
 .app-page {
     animation: fadeIn 0.3s ease;
-    height: 100%;
+    height: auto;
+    min-height: auto;
     overflow-y: auto;
     /* Memaksa scroll aktif jika konten panjang */
-    padding-bottom: 80px;
+    padding-bottom: 20px;
     /* Ruang agar tidak tertutup navbar bawah */
     -webkit-overflow-scrolling: touch;
 }
@@ -311,7 +312,8 @@ body {
     background: white;
     padding: 20px;
     border-radius: 12px;
-    height: fit-content;
+    height: 100%;
+
 }
 
 .grid-small {
@@ -732,6 +734,7 @@ textarea {
 /* Hidden State */
 #notif-laci.laci-closed {
     right: -320px;
+    
 }
 
 /* Half-Circle Handle */
@@ -991,9 +994,11 @@ textarea {
 .app-page {
     /* Pastikan scroll hanya terjadi di dalam elemen ini jika perlu */
     -webkit-overflow-scrolling: touch;
+    height: auto !important;
+    overflow-y: auto !important;
+    padding-bottom: 20px !important;
 }
 
-/*new feature */
 .badge-status {
     padding: 4px 10px;
     border-radius: 6px;
@@ -1061,10 +1066,6 @@ textarea {
 }
 
 /* refresh */
-body {
-    overscroll-behavior-y: hidden;
-    /* Mencegah refresh bawaan browser */
-}
 
 /*laste mate user welcome */
 
@@ -1234,4 +1235,721 @@ body {
 #page-saldo {
     padding-top: 0;
     /* Header sekarang nempel di atas */
+}
+
+/* ======================================================
+   IMPROVED RESPONSIVE DESIGN FOR MOBILE
+   ====================================================== */
+
+/* Base font-size for better text scaling */
+html {
+    font-size: 14px;
+}
+
+
+
+/* Universal Mobile Friendly */
+@media (max-width: 768px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+
+    html {
+        font-size: 13px;
+    }
+
+    body {
+        background-color: var(--bg-light);
+        /* Allow the page to scroll naturally */
+        overflow-y: auto;
+        width: 100%;
+        /* Remove height: 100vh; it pushes content down on mobile */
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+        display: block;
+        /* Ensures content flows from the top down */
+        scroll-behavior: smooth;
+
+    }
+
+    /*THE ONE THAT MAKES THE GALON ETC INVISIBLE BUT FILL THE EMPTY GAPS ON WEB EVEN MOBILE */
+    
+
+    .container {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #empty-gap-sidebar {
+        display: flex;
+        width: 0;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background: var(--bg-dark);
+        transition: left 0.3s ease;
+        z-index: 9999 !important;
+    }
+
+    .sidebar.active {
+        left: 0;
+
+    }
+
+    .content {
+        padding: 10px 15px 15px 15px;
+        text-align: center;
+        width: 100%;
+        overflow-x: hidden;
+        display: block;
+    }
+
+    #menu-mobile {
+        display: flex !important;
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        background: var(--bg-dark) !important;
+        color: white !important;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /*render piutang (2/11/2026*/
+    #piutang-list > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    /* 2. FIX THE OVERLAPPING WORDS (Top Right Metadata) */
+    /* Targets the absolute div containing "Dibuat", "Oleh", etc. */
+    .card > div[style*="position: absolute"] {
+        display: flex !important;
+        flex-direction: column !important; /* Forces vertical stack */
+        align-items: flex-end !important;
+        line-height: 1.4 !important; /* Fixes squashed text */
+        height: auto !important;
+        gap: 2px !important;
+    }
+
+    /* 3. OPTIMIZE CARD SPACING FOR MOBILE */
+    .card {
+        padding: 15px !important;
+        min-height: 260px !important; /* Ensures space for the stack */
+    }
+
+    /* 4. FIX ITEM LISTS (The "xQty" that uses float) */
+    .card div[style*="margin:10px 0"] > div {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+    
+    .card b[style*="float:right"] {
+        float: none !important; /* Stop floating to prevent layout breaks */
+    }
+
+    /* Text Sizing - No shrink/stretch */
+    h1 {
+        font-size: 1.4rem;
+        margin: 3px 0;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        margin: 2px 0;
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1rem;
+        margin: 2px 0;
+    }
+
+    p,
+    span,
+    label {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    /* Smart Alignment - Only center headers and action buttons */
+    .header {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .header h1 {
+        font-size: 1.3rem;
+    }
+
+    .header p {
+        font-size: 0.85rem;
+    }
+
+    /* Cards and Layout */
+    .card {
+        width: 95%;
+        max-width: 100%;
+        margin: 8px auto;
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .balance-card {
+        width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .balance-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .balance-main h2 {
+        font-size: 1.5rem;
+        width: 100%;
+    }
+
+    /* Riwayat/Laporan filters optimization */
+    #riwayat-list,
+    #laporan-table-section {
+        width: 100%;
+    }
+
+    #laporan-summary,
+    #laporan-piutang-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    #laporan-summary>div,
+    #laporan-piutang-summary>div {
+        flex: 0 0 calc(50% - 4px);
+        padding: 8px !important;
+        font-size: 0.75rem;
+        border-radius: 6px;
+    }
+
+
+
+    .balance-stats {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 6px;
+        padding-top: 8px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Grid layouts - only center main grid in dashboard */
+    .grid {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        align-items: center;
+    }
+
+    /* 2x2 Product Grid for Kasir */
+    .grid-small {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
+        margin-top: 8px;
+        padding: 0 5px;
+    }
+
+    /* Form elements */
+    .form-container {
+        width: 90%;
+        max-width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container input,
+    .form-container select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+    }
+
+    /* Buttons - Only center action buttons */
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
+        margin: 5px auto;
+        border-radius: 6px;
+        display: block;
+    }
+
+    .btn-secondary {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
+        margin: 5px auto;
+        border-radius: 6px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+
+    }
+
+    
+
+    .kasir-btn {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+        border-radius: 6px;
+    }
+
+    /* Tables - Natural alignment (left), sticky headers, no horizontal leak */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-container table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    .table-container thead {
+        position: sticky;
+        top: 0;
+        background: var(--sidebar-active);
+        color: white;
+        z-index: 100;
+    }
+
+    .table-container th,
+    .table-container td {
+        padding: 8px 6px;
+        font-size: 0.8rem;
+        text-align: left;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        border-bottom: 1px solid #eee;
+    }
+
+    
+
+
+
+    /* Piutang cards - Modern card styling */
+    #piutang-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 8px 5px;
+        width: 100%;
+    }
+
+    /* Manajemen Galon page styling */
+    #page-galon.app-page {
+        padding: 10px 5px;
+        height: 100dvh;
+        
+    }
+
+    body, .container {
+        overflow: auto !important; 
+        height: auto !important;
+    }
+
+    /* Kill the 250px gap on the left */
+    .main-content {
+        margin-left: 0 !important;
+        padding: 10px !important;
+        width: 100% !important;
+        transform: none !important;
+    }
+
+    /* Make sure the actual page container is visible */
+    .app-page {
+        display: none; /* Default */
+    }
+
+    .app-page.active {
+        display: block !important; /* Force show when active */
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Prevent the cards from being too wide for the phone */
+    .grid-container, #galon-list, #gas-list {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+        width: 100% !important;
+    }
+
+    .piutang-card {
+        width: 100%;
+        padding: 10px 12px;
+        min-height: auto;
+        font-size: 0.75rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        border: 1px solid #ddd;
+        border-left: 5px solid #e74c3c;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        background: white;
+        align-items: start;
+    }
+
+    .piutang-card-left {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+    }
+
+    .piutang-card h4 {
+        font-size: 0.8rem;
+        margin: 0;
+        line-height: 1.25;
+        word-break: break-word;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .piutang-card p {
+        font-size: 0.7rem;
+        margin: 0;
+        line-height: 1.35;
+        overflow-wrap: break-word;
+        color: #7f8c8d;
+    }
+
+    .piutang-card-status {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+        text-align: right;
+    }
+
+    .piutang-card-amount {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: #e74c3c;
+        white-space: nowrap;
+    }
+
+    .piutang-card-date {
+        font-size: 0.65rem;
+        color: #95a5a6;
+    }
+
+    .piutang-card.lunas {
+        border-left-color: #27ae60;
+        background: #f8fdf7;
+    }
+
+    .piutang-card.lunas .piutang-card-amount {
+        color: #27ae60;
+    }
+
+    .piutang-card.lunas h4 {
+        color: #27ae60;
+    }
+
+    /* Item card mini - Kasir products */
+    .item-card-mini {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        background: white;
+        transition: all 0.2s ease;
+    }
+
+    .item-card-mini:hover {
+        border-color: var(--sidebar-active);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    /* Search and input boxes - prevent overflow, modern styling */
+    .search-container {
+        width: 100%;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .search-box {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 35px 10px 10px !important;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 0.9rem;
+    }
+
+    /* Riwayat Mutasi page - filter section optimization */
+    #page-log-mutasi>div:first-child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 10px;
+        align-items: stretch;
+    }
+
+    #page-log-mutasi h2 {
+        flex: 0 0 100%;
+        font-size: 1rem;
+        margin-bottom: 3px;
+    }
+
+    #page-log-mutasi button {
+        flex: 1;
+        min-width: 70px;
+        padding: 8px 4px !important;
+        font-size: 0.65rem !important;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    #page-laporan>div:first-of-type {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    #page-laporan>div:first-of-type>select,
+    #page-laporan>div:first-of-type>input,
+    #page-laporan>div:first-of-type>button {
+        padding: 8px 4px !important;
+        font-size: 0.7rem !important;
+        border-radius: 4px;
+    }
+
+    #page-laporan>div:first-of-type>button {
+        grid-column: 1 / -1;
+    }
+
+    /* Main Layout */
+    .kasir-layout {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    /* Use 100% or 100vh for maximum compatibility with locked layouts */
+    height: 100dvh !important; 
+    
+    /* Correct property to kill scrolling */
+    overflow: hidden !important; 
+    
+    /* Ensures border doesn't add extra height */
+    box-sizing: border-box !important; 
+    
+    flex-shrink: 0;
+    background: #ffffff;
+    z-index: 100;
+    padding: 0;
+    
+    /* These can cause tiny 'ghost' scrolls if not boxed correctly */
+    border-bottom: 2px solid #2ecc71;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    
+    /* Prevent body-level bounce on iOS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+    /* 2nd Container: Products (Scrollable) */
+    .produk-list {
+        flex: 1 !important; /* Takes all remaining screen space */
+        overflow-y: auto !important; /* Enables scrolling here */
+        padding: 10px;
+        -webkit-overflow-scrolling: touch;
+        display: grid;
+        grid-template-columns: 1fr; /* 1-by-1 stack to prevent shrinking */
+        gap: 12px;
+    }
+    
+    /* Ensure the products don't look squashed */
+    .product-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #keranjang {
+        margin-top: 10px;
+        padding: 10px;
+        border-top: 2px solid #2ecc71;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        background: #ffffff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        height: fit-content;
+        padding-bottom: 5;
+        
+
+    }
+
+    #cart-name-clear-btn {
+        display: flex;
+        left: 330px;
+        top: 80px !important;
+    }
+
+    #kasir-search-input {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: white;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /*riwayat kas*/
+    /*body*/
+    #mutasi-list {
+        width: 100%;
+        height: auto;
+
+    }
+
+    /*filter kas */
+    #filter-kas-container {
+        width: 70vw !important;
+        /* Forces it to stretch horizontally */
+        display: flex;
+        flex-direction: column;
+        /* Better for mobile: stacks inputs vertically */
+        gap: 12px;
+        padding: 15px;
+        box-sizing: border-box;
+        align-items: stretch;
+    }
+
+    
+
+    #filter-kas-start,
+    #filter-kas-end {
+        width: 100%;
+        padding: 2px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        font-size: auto;
+        text-align: left;
+        
+    }
+
+    #kas-header {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        text-align: center;
+
+    }
+
+/* 1. Target the parent div containing the date search */
+#page-piutang div:has(> #piutang-search-tanggal) {
+    position: relative !important;
+    margin-top: 15px !important; /* Space so the label doesn't hit elements above */
+}
+
+/* 2. Position the text right on the top border of the date box */
+#page-piutang div:has(> #piutang-search-tanggal)::before {
+    content: "Atur Tanggal";
+    position: absolute;
+    
+    /* Puts it on the top border */
+    top: 110px;           
+    left: 12px;         /* Move to 'right: 12px' if you prefer it on the top-right */
+    
+    /* Styling */
+    padding: 0 5px;
+    font-size: 15px;
+    font-weight: normal;
+    color: #242424;      /* Using your card-blue theme */
+    z-index: 10;
+    pointer-events: none; 
+    border-radius: 4px;
+}
+
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .balance-main h2 {
+        font-size: 1.5rem;
+    }
+
+    .grid-small {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content-box {
+        width: 95%;
+    }
+
+    #piutang-list {
+        padding: 5px;
+    }
+
+
+    /* Find the container holding the date filter */
+    
 }

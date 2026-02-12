@@ -11,515 +11,414 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
-<body>
-    <!--pull to refresh-->
-    <div id="pull-to-refresh"
+<div class="top-header">
+    <button id="menu-mobile" onclick="toggleSidebar()" style="display: none;">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <body>
+        <!--pull to refresh not gonna use it since its a web not an app-->
+        <!--<div id="pull-to-refresh"
         style="display: none; justify-content: center; align-items: center; padding: 10px; background: #f4f7f6; color: #27ae60; font-weight: bold; width: 100%;">
         <i class="fas fa-sync-alt fa-spin"></i> &nbsp; Menyegarkan...
-    </div>
-    <!-- ada ijo ijo nah itu bre yang blm keterus nanti lanjut feb aja nunggu copilot ai kereset-->
-    <!--1/27/2026 edit: nah i'd win-->
-    <div class="container">
-        <div style="display: flex; height: 100vh; overflow: hidden;">
+    </div>-->
 
-            <div class="sidebar"
-                style="width: 250px; display: flex; flex-direction: column; background: #1a1c23; color: white;">
-                <button id="mute-btn" onclick="playSound('back.mp3'); toggleMute()"
-                    style="position:fixed; top:10px; right:10px; z-index:999; padding:8px; border-radius:20px; border:none; background:#2ecc71; color:white; cursor:pointer;">
-                    🔊 Sound On
-                </button>
+        <!-- ada ijo ijo nah itu bre yang blm keterus nanti lanjut feb aja nunggu copilot ai kereset-->
+        <!--1/27/2026 edit: nah i'd win-->
+        <div class="container">
+            <div id="empty-gap-sidebar" style="display: flex; height: 100vh; overflow: hidden;">
 
-                <div class="header-premium">
-                    <div class="welcome-section">
-                        <div class="avatar-circle">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="welcome-text">
-                            <small>Petugas Aktif</small>
-                            <h2 id="welcome-user">PAPA</h2>
-                        </div>
-                    </div>
-
-                    <button id="change-user-btn" class="action-btn-mini" onclick="playSound('click.mp3'); showUserModal()">
-                        <i class="fas fa-sync-alt"></i>
-                        <span>Ganti</span>
+                <div class="sidebar"
+                    style="overflow-y: hidden; width: 250px; display: flex; flex-direction: column; background: #1a1c23; color: white;">
+                    <button id="mute-btn" onclick="playSound('back.mp3'); toggleMute()"
+                        style="position:fixed; top:10px; right:10px; z-index:999; padding:8px; border-radius:20px; border:none; background:#2ecc71; color:white; cursor:pointer;">
+                        🔊 Sound On
                     </button>
-                </div>
 
-                <ul style="flex-grow: 1; list-style: none; padding: 0; margin: 0; overflow-y: auto;">
-                    <li id="nav-saldo" onclick="playSound('click.mp3'); showPage('page-saldo')"><i class="fas fa-wallet"></i> Saldo</li>
-                    <li id="nav-mutasi" onclick="playSound('click.mp3'); openMutasiPage('page-log-mutasi')"><i class="fas fa-history"></i>
-                        Riwayat Kas</li>
-                    <li id="nav-kasir" onclick="playSound('click.mp3'); showPage('page-kasir')"><i class="fas fa-shopping-cart"></i> Kasir</li>
-                    <li id="nav-produk" onclick="playSound('click.mp3'); showPage('page-produk')"><i class="fas fa-box"></i> Produk</li>
-                    <li id="nav-laporan" onclick="playSound('click.mp3'); showPage('page-laporan')"><i class="fas fa-file-alt"></i> Laporan</li>
-                    <li id="nav-piutang" onclick="playSound('click.mp3'); showPage('page-piutang')" style="position: relative;">
-                        <i class="fas fa-hand-holding-usd"></i> Piutang
-                        <span id="badge-piutang-count" class="count-badge">0</span>
-                    </li>
+                    <div class="header-premium">
+                        <div class="welcome-section">
+                            <div class="avatar-circle">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="welcome-text">
+                                <small>Petugas Aktif</small>
+                                <h2 id="welcome-user">PAPA</h2>
+                            </div>
+                        </div>
 
-                    <div style="border-top: 1px solid #333; padding: 1px;"></div>
+                        <button id="change-user-btn" class="action-btn-mini"
+                            onclick="playSound('click.mp3'); showUserModal()">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Ganti</span>
+                        </button>
+                    </div>
 
-                    <li id="nav-galon" onclick="playSound('click.mp3'); showPage('page-galon')">
-                        <i class="fas fa-wine-bottle"></i> Galon
-                    </li>
-                    <li id="nav-gas" onclick="playSound('click.mp3'); showPage('page-gas')"><i class="fas fa-fire"></i> Gas</li>
-                    <li id="nav-koin" onclick="playSound('click.mp3'); showPage('page-koin')"><i class="fas fa-coins"></i> Koin malas</li>
-
-                </ul>
-
-                <div style="border-top: 1px solid #333; padding: 10px;">
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li onclick="playSound('click.mp3'); goHome()"
-                            style="padding: 12px; cursor: pointer; border-radius: 8px;">
-                            <i class="fas fa-home"></i> Home
+                    <ul style="flex-grow: 1; list-style: none; padding: 0; margin: 0; overflow-y: auto;">
+                        <li id="nav-saldo" onclick="playSound('click.mp3'); showPage('page-saldo'); toggleSidebar()"><i
+                                class="fas fa-wallet"></i> Saldo</li>
+                        <li id="nav-mutasi"
+                            onclick="playSound('click.mp3'); openMutasiPage('page-log-mutasi'); toggleSidebar()"><i
+                                class="fas fa-history"></i> Riwayat Kas</li>
+                        <li id="nav-kasir" onclick="playSound('click.mp3'); showPage('page-kasir'); toggleSidebar()"><i
+                                class="fas fa-shopping-cart"></i> Kasir</li>
+                        <li id="nav-produk" onclick="playSound('click.mp3'); showPage('page-produk'); toggleSidebar()">
+                            <i class="fas fa-box"></i> Produk</li>
+                        <li id="nav-laporan"
+                            onclick="playSound('click.mp3'); showPage('page-laporan'); toggleSidebar()"><i
+                                class="fas fa-file-alt"></i> Laporan</li>
+                        <li id="nav-piutang" onclick="playSound('click.mp3'); showPage('page-piutang'); toggleSidebar()"
+                            style="position: relative;">
+                            <i class="fas fa-hand-holding-usd"></i> Piutang
+                            <span id="badge-piutang-count" class="count-badge">0</span>
                         </li>
-                        <li onclick="playSound('back.mp3'); goBack()"
-                            style="padding: 12px; cursor: pointer; border-radius: 8px;">
-                            <i class="fas fa-arrow-left"></i> Kembali
+
+                        <div style="border-top: 1px solid #333; padding: 1px;"></div>
+
+                        <li id="nav-galon" onclick="playSound('click.mp3'); showPage('page-galon'); toggleSidebar()">
+                            <i class="fas fa-wine-bottle"></i> Galon
                         </li>
+                        <li id="nav-gas" onclick="playSound('click.mp3'); showPage('page-gas'); toggleSidebar()"><i
+                                class="fas fa-fire"></i> Gas</li>
+                        <li id="nav-koin" onclick="playSound('click.mp3'); showPage('page-koin'); toggleSidebar()"><i
+                                class="fas fa-coins"></i> Koin malas</li>
                     </ul>
-                </div>
-                <div id="btn-refresh-global" onclick="playSound('back.mp3');refreshSemuaData()"
-                    style="cursor:pointer; padding:10px; color:white; display:inline-block;">
-                    <i class="fas fa-sync-alt" id="icon-refresh"></i>
-                </div>
-            </div>
 
-            <div class="main-content" style="flex-grow: 1; overflow-y: auto; background: #f4f7f6; padding: 20px;">
-                <!--new featres-->
-                <section id="page-galon" class="app-page" style="display:none; padding:20px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2>
-                            <i class="fas fa-faucet-drip" style="color:#3498db;"></i> Manajemen Galon
-                            <i class="fas fa-cog" onclick="openMaxEditor('galon')"
-                                style="font-size:20px; color:#ccc; cursor:pointer; margin-left:10px; margin-right: 10px;"></i>
-                        </h2>
-                        <div id="galon-header-status"
-                            style="font-size: 18px; font-weight: bold; background: white; padding: 10px 15px; border-radius: 10px;">
-                        </div>
-                    </div>
-                    <div id="galon-list"
-                        style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:15px;">
-                    </div>
-                    <button class="tambah-produk-btn" onclick="openInvModal('galon')" style="background:#3498db;"><i
-                            class="fas fa-plus"></i></button>
-                </section>
-
-                <section id="page-gas" class="app-page" style="display:none; padding:20px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2>
-                            <i class="fas fa-fire-burner" style="color:#e67e22;"></i> Manajemen Gas
-                            <i class="fas fa-cog" onclick="openMaxEditor('gas')"
-                                style="font-size:14px; color:#ccc; cursor:pointer; margin-left:10px; margin-right: 10px;"></i>
-                        </h2>
-                        <div id="gas-header-status"
-                            style="font-size: 18px; font-weight: bold; background: white; padding: 10px 15px; border-radius: 10px;">
-                        </div>
-                    </div>
-                    <div id="gas-list"
-                        style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:15px;">
-                    </div>
-                    <button class="tambah-produk-btn" onclick="openInvModal('gas')" style="background:#e67e22;"><i
-                            class="fas fa-plus"></i></button>
-                </section>
-
-                <section id="page-koin" class="app-page" style="display:none; padding:20px;">
-                    <h2><i class="fas fa-coins" style="color:#f1c40f;"></i> Tabungan Koin 500</h2>
-                    <div
-                        style="background:white; padding:20px; border-radius:12px; margin-top:20px; box-shadow:0 4px 15px rgba(0,0,0,0.05);">
-                        <table style="width:100%; border-collapse: collapse;">
-                            <tbody id="koin-list"></tbody>
-                        </table>
-                        <button onclick="tambahPenabung()"
-                            style="margin-top:20px; width:100%; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">+
-                            Tambah Nama Penabung</button>
-                    </div>
-
-                    <div id="modal-koin" class="modal-overlay" style="display:none;">
-                        <div class="modal-content-box" style="width: 300px;">
-                            <h3>Tambah Penabung</h3>
-                            <input type="text" id="input-nama-koin" placeholder="Nama Penabung..." autocomplete="off"
-                                style="width:100%; padding:12px; margin:15px 0; border-radius:8px; border:1px solid #ddd;">
-                            <div style="display:flex; gap:10px;">
-                                <button onclick="simpanPenabungKoin()"
-                                    style="flex:1; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold;">SIMPAN</button>
-                                <button onclick="document.getElementById('modal-koin').style.display='none'"
-                                    style="flex:1; padding:12px; background:#95a5a6; color:white; border:none; border-radius:8px;">BATAL</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </section>
-
-                <div id="modal-inv" class="modal-overlay" style="display:none;">
-                    <div class="modal-content-box" style="width: 350px;">
-                        <h3 id="inv-title">Catat Galon</h3>
-                        <input type="text" id="inv-nama-input" placeholder="Nama Pelanggan..." autocomplete="off"
-                            style="width:100%; padding:12px; margin:15px 0; border-radius:8px; border:1px solid #ddd;">
-
-                        <div
-                            style="display:flex; justify-content:space-around; background:#f9f9f9; padding:20px; border-radius:15px; margin-bottom:20px;">
-                            <div onclick="toggleIcon('isi')" id="icon-isi"
-                                style="text-align:center; cursor:pointer; filter:grayscale(100%); opacity:0.4;">
-                                <i class="fas fa-tint" style="font-size:30px; color:#3498db;"></i>
-                                <div style="font-size:10px; margin-top:5px; font-weight:bold;">ISI</div>
-                            </div>
-
-                            <div onclick="toggleIcon('wadah')" id="icon-wadah"
-                                style="text-align:center; cursor:pointer; filter:grayscale(100%); opacity:0.4;">
-                                <i class="fas fa-wine-bottle" id="wadah-img"
-                                    style="font-size:30px; color: #344aa3;"></i>
-                                <div style="font-size:10px; margin-top:5px; font-weight:bold;">WADAH</div>
-                            </div>
-                            <div onclick="toggleIcon('bayar')" id="icon-bayar"
-                                style="text-align:center; cursor:pointer; filter:grayscale(100%); opacity:0.4;">
-                                <i class="fas fa-dollar-sign" style="font-size:30px; color:#2ecc71;"></i>
-                                <div style="font-size:10px; margin-top:5px; font-weight:bold;">BAYAR</div>
-                            </div>
-
-                        </div>
-
-                        <div style="display:flex; gap:10px;">
-                            <button onclick="simpanInv()"
-                                style="flex:1; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold;">SIMPAN</button>
-                            <button onclick="document.getElementById('modal-inv').style.display='none'"
-                                style="flex:1; padding:12px; background:#95a5a6; color:white; border:none; border-radius:8px;">BATAL</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="modal-max-stok" class="modal-overlay" style="display:none;">
-                    <div class="modal-content-box" style="width: 300px;">
-                        <h3>Set Maksimal Stok</h3>
-                        <p style="font-size: 12px; color: #666;">Ubah kapasitas total galon/gas di toko.</p>
-                        <input type="number" id="input-max-stok"
-                            style="width:100%; padding:12px; margin:15px 0; border-radius:8px; border:1px solid #ddd;">
-                        <div style="display:flex; gap:10px;">
-                            <button onclick="simpanMaxStok()"
-                                style="flex:1; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold;">SIMPAN</button>
-                            <button onclick="document.getElementById('modal-max-stok').style.display='none'"
-                                style="flex:1; padding:12px; background:#95a5a6; color:white; border:none; border-radius:8px;">BATAL</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-        </div>
-
-        <main class="content">
-            <section id="page-saldo" class="app-page">
-                <header class="header">
-                    <h1 id="app-title" onclick="secretCrash()" style="cursor: pointer; user-select: none;"> 
-                        WARUNGAN
-                    </h1>
-                    <p>made by charles / supported by gemini</p>
-                </header>
-                <div class="balance-card">
-                    <div class="balance-main">
-                        <div>
-                            <p>Saldo Saat Ini</p>
-                            <h2 id="display-saldo">Rp 0</h2>
-                        </div>
-                        <button onclick="playSound('click.mp3'); backupData()" class="btn-secondary"><i class="fas fa-download"></i>
-                            Cadangkan</button>
-                        <button onclick="playSound('click.mp3'); loadBackupData()" class="btn-secondary" style="margin-left:10px;"><i
-                                class="fas fa-upload"></i> Muat Cadangan Data</button>
-                        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
-                            <button onclick="playSound('click.mp3'); downloadCadangan()"
-                                style="flex: 1; background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i class="fas fa-save"></i> Simpan Cadangan
-                            </button>
-
-                            <button onclick="playSound('click.mp3'); triggerFileInput()"
-                                style="flex: 1; background: #2980b9; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i class="fas fa-upload"></i> Muat Cadangan
-                            </button>
-                        </div>
-
-                        <input type="file" id="fileInputCadangan" style="display: none;" accept=".json"
-                            onchange="muatCadangan(event)">
-                        <input type="file" id="backup-file-input" style="display:none;" accept="application/json"
-                            onchange="handleBackupFile(event)">
-                        <button class="btn-secondary" id="reset-saldo-btn" style="margin-left:10px;"
-                            onclick="playSound('back.mp3'); resetSaldoPrompt()">Reset Saldo</button>
-                    </div>
-                    <div class="balance-stats">
-                        <div class="stat">Pemasukan Hari Ini<br><strong id="dash-in">Rp 0</strong></div>
-                        <div class="stat">Pengeluaran Hari Ini<br><strong id="dash-out">Rp 0</strong></div>
-                        <div class="stat">Transaksi Hari Ini<br><strong id="dash-count">0</strong></div>
-                        <div class="stat">Total Piutang<br><strong id="dash-piutang">Rp 0</strong></div>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="card green" onclick="playSound('click.mp3'); showPage('page-pemasukan')"><i class="fas fa-plus-circle"></i>
-                        <h3>Dompet</h3>
-                        <p>Catat kas masuk/keluar</p>
-                    </div>
-                    <div class="card blue" onclick="playSound('click.mp3'); showPage('page-kasir')"><i class="fas fa-shopping-cart"></i>
-                        <h3>Kasir</h3>
-                        <p>Jual produk ke pelanggan</p>
-                    </div>
-                    <div class="card purple" onclick="playSound('click.mp3'); showPage('page-produk')"><i class="fas fa-box"></i>
-                        <h3>Produk</h3>
-                        <p>Kelola stok barang</p>
-                    </div>
-                    <div class="card orange" onclick="playSound('click.mp3'); showPage('page-laporan')"><i class="fas fa-chart-line"></i>
-                        <h3>Laporan</h3>
-                        <p>Lihat penjualan & profit</p>
-                    </div>
-                </div>
-
-                <label for="coming-soon-toggle" class="shiny-btn">
-                    COMING SOON
-                </label>
-
-                <input type="checkbox" id="coming-soon-toggle" style="display:none;">
-
-                <div class="cs-overlay">
-                    <div class="cs-window">
-                        <label for="coming-soon-toggle" class="cs-cancel-btn">&times;</label>
-                        <div class="cs-header">
-                            <h3>Coming Soon Feature!</h3>
-                            <small>(Feb 2026 Update)</small>
-                        </div>
-                        <ul class="cs-list">
-                            <li>1. Tutup Kasir</li>
-                            <li>2. Riwayat Tutup Kasir</li>
-                            <li>3. Ringkasan Budget - Profit = Revenue</li>
-                            <li>4. Riwayat Stok</li>
+                    <div style="border-top: 1px solid #333; padding: 10px;">
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li onclick="playSound('click.mp3'); goHome()"
+                                style="padding: 12px; cursor: pointer; border-radius: 8px;">
+                                <i class="fas fa-home"></i> Home
+                            </li>
+                            <li onclick="playSound('back.mp3'); goBack()"
+                                style="padding: 12px; cursor: pointer; border-radius: 8px;">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </li>
                         </ul>
                     </div>
+                    
                 </div>
 
-            </section>
 
-            <section id="page-pemasukan" class="app-page" style="display:none;">
-                <h2>Catat Transaksi Kas</h2>
-                <div class="form-container">
-                    <input type="number" id="pem-nominal" placeholder="Nominal Rp">
-                    <select id="pem-jenis" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-                        <option value="Masuk">Kas Masuk (Tambah Saldo)</option>
-                        <option value="Keluar">Kas Keluar (Potong Saldo)</option>
-                    </select>
-                    <input type="text" id="pem-ket" placeholder="Keterangan">
-                    <button class="btn-primary" onclick="prosesPemasukan()">Simpan Transaksi</button>
-                </div>
-            </section>
+            </div>
 
-            <section id="page-log-mutasi" class="app-page" style="display:none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Riwayat Kas Manual</h2>
-                    <button class="btn-primary" style="background: #27ae60; width: auto;" onclick="exportMutasiExcel()">
-                        <i class="fas fa-file-excel"></i> Ekspor ke Excel
-                    </button>
+            <main class="content">
+                <section id="page-saldo" class="app-page">
+                    <header class="header">
+                        <h1 id="app-title" onclick="secretCrash()" style="cursor: pointer; user-select: none;">
+                            WARUNGAN
+                        </h1>
+                        <p>made by charles / supported by gemini</p>
+                    </header>
+                    <div class="balance-card">
+                        <div class="balance-main">
+                            <div>
+                                <p>Saldo Saat Ini</p>
+                                <h2 id="display-saldo">Rp 0</h2>
+                            </div>
 
-                </div>
+                            <div class="button-container">
+                                
+                                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+                                    <button onclick="playSound('click.mp3'); downloadCadangan()"
+                                        style="flex: 1; background: #27ae60; color: white; border: none; padding: 9px; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        <i class="fas fa-save"></i> Simpan Cadangan
+                                    </button>
 
-                <div class="table-container" style="overflow-y: auto; max-height: 70vh;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tbody id="mutasi-list">
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="page-kasir" class="app-page" style="height: 85vh; overflow-y: auto;">
-                <div class="kasir-layout">
-                    <div class="produk-list">
-                        <h2>Daftar Produk</h2>
-                        <div class="search-container" style="position: relative; margin-bottom: 10px;">
-                            <span class="clear-btn" onclick="clearSearchInput('produk-search', 'renderProduk')"
-                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none; color: #aaa;">&times;</span>
-                            <input type="text" id="kasir-search-input" placeholder="Cari produk..."
-                                oninput="setKasirSearch(this.value); toggleClearBtn('kasir-search-input', 'kasir-clear-btn')"
-                                style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #ddd; border-radius: 8px;">
-                            <span id="kasir-clear-btn" onclick="clearKasirSearch()"
-                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none; color: #aaa; font-size: 20px;">
-                                &times;
-                            </span>
-                            <div id="modal-due-date"
-                                style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10001; align-items:center; justify-content:center;">
-                                <div
-                                    style="background:white; padding:25px; border-radius:15px; width:320px; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
-                                    <h3 style="margin-top:0; color:#2c3e50;">Bayar Kapan?</h3>
-                                    <p style="font-size:14px; color:#7f8c8d;">Pilih tanggal jatuh tempo:</p>
-
-                                    <input type="date" id="input-jatuh-tempo"
-                                        style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px; font-size:16px;">
-
-                                    <div style="display:flex; flex-direction:column; gap:10px;">
-                                        <button onclick="confirmPiutang()"
-                                            style="background:#2ecc71; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">pilih
-                                            tanggal</button>
-                                        <button onclick="nantiPiutang()"
-                                            style="background:#95a5a6; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">Nanti
-                                            (Besok)</button>
-                                        <button onclick="closeDueDateModal()"
-                                            style="background:none; color:#e74c3c; border:none; cursor:pointer; font-size:14px;">Batal</button>
-                                    </div>
+                                    <button onclick="playSound('click.mp3'); triggerFileInput()"
+                                        style="flex: 1; background: #2980b9; color: white; border: none; padding: 9px; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        <i class="fas fa-upload"></i> Muat Cadangan
+                                    </button>
                                 </div>
                             </div>
 
-                            <span id="clear-search-btn" onclick="clearKasirSearch()"
-                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; display: none; font-weight: bold; font-size: 18px;">
+                            <input type="file" id="fileInputCadangan" style="display: none;" accept=".json"
+                                onchange="muatCadangan(event)">
+                            <input type="file" id="backup-file-input" style="display:none;" accept="application/json"
+                                onchange="handleBackupFile(event)">
+                            <button class="btn-secondary" id="reset-saldo-btn" style="margin-left:10px;"
+                                onclick="playSound('back.mp3'); resetSaldoPrompt()">Reset Saldo</button>
+                        </div>
+                        <div class="balance-stats">
+                            <div class="stat">Pemasukan Hari Ini<br><strong id="dash-in">Rp 0</strong></div>
+                            <div class="stat">Pengeluaran Hari Ini<br><strong id="dash-out">Rp 0</strong></div>
+                            <div class="stat">Transaksi Hari Ini<br><strong id="dash-count">0</strong></div>
+                            <div class="stat">Total Piutang<br><strong id="dash-piutang">Rp 0</strong></div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="card green" onclick="playSound('click.mp3'); showPage('page-pemasukan')"><i
+                                class="fas fa-plus-circle"></i>
+                            <h3>Dompet</h3>
+                            <p>Catat kas masuk/keluar</p>
+                        </div>
+                        <div class="card blue" onclick="playSound('click.mp3'); showPage('page-kasir')"><i
+                                class="fas fa-shopping-cart"></i>
+                            <h3>Kasir</h3>
+                            <p>Jual produk ke pelanggan</p>
+                        </div>
+                        <div class="card purple" onclick="playSound('click.mp3'); showPage('page-produk')"><i
+                                class="fas fa-box"></i>
+                            <h3>Produk</h3>
+                            <p>Kelola stok barang</p>
+                        </div>
+                        <div class="card orange" onclick="playSound('click.mp3'); showPage('page-laporan')"><i
+                                class="fas fa-chart-line"></i>
+                            <h3>Laporan</h3>
+                            <p>Lihat penjualan & profit</p>
+                        </div>
+                    </div>
+
+                    <label for="coming-soon-toggle" class="shiny-btn">
+                        COMING SOON
+                    </label>
+
+                    <input type="checkbox" id="coming-soon-toggle" style="display:none;">
+
+                    <div class="cs-overlay">
+                        <div class="cs-window">
+                            <label for="coming-soon-toggle" class="cs-cancel-btn">&times;</label>
+                            <div class="cs-header">
+                                <h3>Coming Soon Feature!</h3>
+                                <small>(Feb 2026 Update)</small>
+                            </div>
+                            <ul class="cs-list">
+                                <li>1. Tutup Kasir</li>
+                                <li>2. Riwayat Tutup Kasir</li>
+                                <li>3. Ringkasan Budget - Profit = Revenue</li>
+                                <li>4. Riwayat Stok</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+
+                <section id="page-pemasukan" class="app-page" style="display:none;">
+                    <h2>Catat Transaksi Kas</h2>
+                    <div class="form-container">
+                        <input type="number" id="pem-nominal" placeholder="Nominal Rp">
+                        <select id="pem-jenis" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                            <option value="Masuk">Kas Masuk (Tambah Saldo)</option>
+                            <option value="Keluar">Kas Keluar (Potong Saldo)</option>
+                        </select>
+                        <input type="text" id="pem-ket" placeholder="Keterangan">
+                        <button class="btn-primary" onclick="prosesPemasukan()">Simpan Transaksi</button>
+                    </div>
+                </section>
+
+                <section id="page-log-mutasi" class="app-page" style="display:none;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2>Riwayat Kas Manual</h2>
+                        <button class="btn-primary" style="background: #27ae60; width: auto;"
+                            onclick="exportMutasiExcel()">
+                            <i class="fas fa-file-excel"></i> Ekspor ke Excel
+                        </button>
+
+                    </div>
+
+                    <div class="table-container" style="overflow-y: auto; max-height: 70vh;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tbody id="mutasi-list">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="page-kasir" class="app-page" style="height: 85vh; overflow-y: auto;">
+                    <div class="kasir-layout">
+                        <div class="produk-list">
+                            <h2>Daftar Produk</h2>
+                            <div class="search-container" style="position: relative; margin-bottom: 10px;">
+                                <span class="clear-btn" onclick="clearSearchInput('produk-search', 'renderProduk')"
+                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none; color: #aaa;">&times;</span>
+                                <input type="text" id="kasir-search-input" placeholder="Cari produk..."
+                                    oninput="setKasirSearch(this.value); toggleClearBtn('kasir-search-input', 'kasir-clear-btn')"
+                                    style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                <span id="kasir-clear-btn" onclick="clearKasirSearch()"
+                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none; color: #aaa; font-size: 20px;">
+                                    &times;
+                                </span>
+                                <div id="modal-due-date"
+                                    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10001; align-items:center; justify-content:center;">
+                                    <div
+                                        style="background:white; padding:25px; border-radius:15px; width:320px; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
+                                        <h3 style="margin-top:0; color:#2c3e50;">Bayar Kapan?</h3>
+                                        <p style="font-size:14px; color:#7f8c8d;">Pilih tanggal jatuh tempo:</p>
+
+                                        <input type="date" id="input-jatuh-tempo"
+                                            style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px; font-size:16px;">
+
+                                        <div style="display:flex; flex-direction:column; gap:10px;">
+                                            <button onclick="confirmPiutang()"
+                                                style="background:#2ecc71; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">pilih
+                                                tanggal</button>
+                                            <button onclick="nantiPiutang()"
+                                                style="background:#95a5a6; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">Nanti
+                                                (Besok)</button>
+                                            <button onclick="closeDueDateModal()"
+                                                style="background:none; color:#e74c3c; border:none; cursor:pointer; font-size:14px;">Batal</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span id="clear-search-btn" onclick="clearKasirSearch()"
+                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; display: none; font-weight: bold; font-size: 18px;">
+                                    &times;
+                                </span>
+                            </div>
+                            <div id="kasir-items-grid" class="grid-small"></div>
+
+                        </div>
+                        <div id="keranjang" class="keranjang">
+                            <h2>Keranjang</h2>
+                            <div id="cart-list"></div>
+                            <input type="text" id="kasir-nama" placeholder="Nama (opsional)"
+                                oninput="toggleClearBtn('kasir-nama', 'cart-name-clear-btn')"
+                                style="width: 100%; padding: 8px 30px 8px 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <span id="cart-name-clear-btn" onclick="clearCartBuyerName()"
+                                style="position: absolute; right: 75px; top: 17%; transform: translateY(-50%); cursor: pointer; display: none; color: #aaa; font-size: 18px;">
+                                &times;
+                            </span>
+                            <h3>Total: <span id="cart-total">Rp 0</span></h3>
+                            <button class="btn-primary" onclick="playSound('kaching.mp3'); checkout()">Bayar
+                                Sekarang</button>
+                            <button class="kasir-btn hapus" style="width:100%;margin-top:10px;"
+                                onclick="tambahPiutang()">UTANG
+                                ?</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-produk" class="app-page" style="height: 85vh; overflow-y: auto; padding-right: 10px;">
+                    <h2>Manajemen Stok</h2>
+
+                    <div style="margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                        <select id="produk-category-filter" onchange="filterProdukByCategory()" style="padding:8px;">
+                            <option value="">Semua Kategori</option>
+                            <option value="tersedia">✅ Stok Tersedia</option>
+                            <option value="hampir_habis">⚠️ Hampir Habis</option>
+                            <option value="stok habis">❌ Stok Habis</option>
+                            <option value="cemilan">Cemilan</option>
+                            <option value="rokok">Rokok</option>
+                            <option value="sembako">Sembako</option>
+                            <option value="minuman">Minuman</option>
+                            <option value="shampoo">Shampoo</option>
+                            <option value="sabun">Sabun</option>
+                            <option value="cuci">Cuci</option>
+                        </select>
+
+                        <div style="position: relative; display: flex; align-items: center;">
+                            <input type="text" id="produk-search" placeholder="Cari produk..."
+                                oninput="this.nextElementSibling.style.display = this.value ? 'block' : 'none'; setProdukSearch(this.value)"
+                                style="padding:8px; width:180px; padding-right: 30px; border-radius: 4px; border: 1px solid #ddd;">
+
+                            <span class="clear-btn" onclick="clearSearchInput('produk-search', 'setProdukSearch')"
+                                style="position: absolute; right: 8px; cursor: pointer; display: none; color: #aaa; font-size: 18px; font-weight: bold; line-height: 1;">
                                 &times;
                             </span>
                         </div>
-                        <div id="kasir-items-grid" class="grid-small"></div>
-
                     </div>
-                    <div class="keranjang">
-                        <h2>Keranjang</h2>
-                        <div id="cart-list"></div>
-                        <input type="text" id="kasir-nama" placeholder="Nama (opsional)"
-                            oninput="toggleClearBtn('kasir-nama', 'cart-name-clear-btn')"
-                            style="width: 100%; padding: 8px 30px 8px 10px; border: 1px solid #ddd; border-radius: 5px;">
-                        <span id="cart-name-clear-btn" onclick="clearCartBuyerName()"
-                            style="position: absolute; right: 75px; top: 17%; transform: translateY(-50%); cursor: pointer; display: none; color: #aaa; font-size: 18px;">
-                            &times;
-                        </span>
-                        <h3>Total: <span id="cart-total">Rp 0</span></h3>
-                        <button class="btn-primary" onclick="playSound('kaching.mp3'); checkout()">Bayar Sekarang</button>
-                        <button class="kasir-btn hapus" style="width:100%;margin-top:10px;"
-                            onclick="tambahPiutang()">UTANG
-                            ?</button>
+
+                    <div id="master-produk-list" class="grid-small"></div>
+
+                    <div style="position:absolute;top:30px;right:40px;z-index:10;">
+                        <button class="btn-primary"
+                            style="border-radius:50%;width:48px;height:48px;font-size:2em;line-height:1;padding:0;"
+                            onclick="openProdukModal()"><i class="fas fa-plus"></i></button>
                     </div>
-                </div>
-            </section>
 
-            <section id="page-produk" class="app-page" style="height: 85vh; overflow-y: auto; padding-right: 10px;">
-                <h2>Manajemen Stok</h2>
-
-                <div style="margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-                    <select id="produk-category-filter" onchange="filterProdukByCategory()" style="padding:8px;">
-                        <option value="">Semua Kategori</option>
-                        <option value="tersedia">✅ Stok Tersedia</option>
-                        <option value="hampir_habis">⚠️ Hampir Habis</option>
-                        <option value="stok habis">❌ Stok Habis</option>
-                        <option value="cemilan">Cemilan</option>
-                        <option value="rokok">Rokok</option>
-                        <option value="sembako">Sembako</option>
-                        <option value="minuman">Minuman</option>
-                        <option value="shampoo">Shampoo</option>
-                        <option value="sabun">Sabun</option>
-                        <option value="cuci">Cuci</option>
-                    </select>
-
-                    <div style="position: relative; display: flex; align-items: center;">
-                        <input type="text" id="produk-search" placeholder="Cari produk..."
-                            oninput="this.nextElementSibling.style.display = this.value ? 'block' : 'none'; setProdukSearch(this.value)"
-                            style="padding:8px; width:180px; padding-right: 30px; border-radius: 4px; border: 1px solid #ddd;">
-
-                        <span class="clear-btn" onclick="clearSearchInput('produk-search', 'setProdukSearch')"
-                            style="position: absolute; right: 8px; cursor: pointer; display: none; color: #aaa; font-size: 18px; font-weight: bold; line-height: 1;">
-                            &times;
-                        </span>
+                    <div id="produk-stok-habis-notif"
+                        style="display:none;color:#e74c3c;font-weight:bold;margin-top:10px;">
+                        Ada produk stok habis!
                     </div>
-                </div>
+                </section>
 
-                <div id="master-produk-list" class="grid-small"></div>
-
-                <div style="position:absolute;top:30px;right:40px;z-index:10;">
-                    <button class="btn-primary"
-                        style="border-radius:50%;width:48px;height:48px;font-size:2em;line-height:1;padding:0;"
-                        onclick="openProdukModal()"><i class="fas fa-plus"></i></button>
-                </div>
-
-                <div id="produk-stok-habis-notif" style="display:none;color:#e74c3c;font-weight:bold;margin-top:10px;">
-                    Ada produk stok habis!
-                </div>
-            </section>
-
-            <section id="page-riwayat-stok" class="app-page" style="display:none;">
-                <h2>Riwayat Stok</h2>
-                <div style="margin-bottom:10px;display:flex;gap:10px;align-items:center;">
-                    <span>Dari:</span>
-                    <input type="date" id="stok-date-start" style="padding:8px;">
-                    <span>Sampai:</span>
-                    <input type="date" id="stok-date-end" style="padding:8px;">
-                    <button class="btn-primary" onclick="filterRiwayatStok()">Filter</button>
-                    <button class="btn-secondary" onclick="resetRiwayatStokFilter()">Reset</button>
-                    <button class="btn-primary" onclick="exportRiwayatStokExcel()"><i class="fas fa-file-excel"></i>
-                        Ekspor ke Excel</button>
-                </div>
-                <div id="riwayat-stok-table" class="riwayat-table"></div>
-            </section>
+                <section id="page-riwayat-stok" class="app-page" style="display:none;">
+                    <h2>Riwayat Stok</h2>
+                    <div style="margin-bottom:10px;display:flex;gap:10px;align-items:center;">
+                        <span>Dari:</span>
+                        <input type="date" id="stok-date-start" style="padding:8px;">
+                        <span>Sampai:</span>
+                        <input type="date" id="stok-date-end" style="padding:8px;">
+                        <button class="btn-primary" onclick="filterRiwayatStok()">Filter</button>
+                        <button class="btn-secondary" onclick="resetRiwayatStokFilter()">Reset</button>
+                        <button class="btn-primary" onclick="exportRiwayatStokExcel()"><i class="fas fa-file-excel"></i>
+                            Ekspor ke Excel</button>
+                    </div>
+                    <div id="riwayat-stok-table" class="riwayat-table"></div>
+                </section>
 
 
-            <div id="produk-modal" class="modal-overlay"
-                style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); z-index:9999; justify-content:center; align-items:center;">
+                <div id="produk-modal" class="modal-overlay"
+                    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); z-index:9999; justify-content:center; align-items:center;">
 
-                <div class="modal-content"
-                    style="background:white; padding:25px; border-radius:15px; width:90%; max-width:450px; box-shadow:0 10px 30px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto;">
+                    <div class="modal-content"
+                        style="background:white; padding:25px; border-radius:15px; width:90%; max-width:450px; box-shadow:0 10px 30px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto;">
 
-                    <h3 id="produk-modal-title" style="margin-top:0; color:#333;">Tambah Produk</h3>
-                    <hr style="opacity:0.2; margin-bottom:20px;">
+                        <h3 id="produk-modal-title" style="margin-top:0; color:#333;">Tambah Produk</h3>
+                        <hr style="opacity:0.2; margin-bottom:20px;">
 
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div class="input-group">
-                            <label style="font-size:18px; color:#666;">Nama Produk</label>
-                            <input type="text" id="modal-prod-nama" placeholder="cth. beng-beng"
-                                style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
-                        </div>
-
-                        <div style="display:flex; gap:10px;">
-                            <div style="flex:1;">
-                                <label style="font-size:18px; color:#666;">Harga Jual</label>
-                                <input type="number" id="modal-prod-harga-jual" placeholder="cth. 2500"
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div class="input-group">
+                                <label style="font-size:18px; color:#666;">Nama Produk</label>
+                                <input type="text" id="modal-prod-nama" placeholder="cth. beng-beng"
                                     style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
                             </div>
-                            <div style="flex:1;">
-                                <label style="font-size:18px; color:#666;">Harga Beli</label>
-                                <input type="number" id="modal-prod-harga-beli" placeholder="cth. 2000"
+
+                            <div style="display:flex; gap:10px;">
+                                <div style="flex:1;">
+                                    <label style="font-size:18px; color:#666;">Harga Jual</label>
+                                    <input type="number" id="modal-prod-harga-jual" placeholder="cth. 2500"
+                                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
+                                </div>
+                                <div style="flex:1;">
+                                    <label style="font-size:18px; color:#666;">Harga Beli</label>
+                                    <input type="number" id="modal-prod-harga-beli" placeholder="cth. 2000"
+                                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
+                                </div>
+                            </div>
+
+                            <div style="display:flex; gap:10px;">
+                                <div style="flex:1;">
+                                    <label style="font-size:18px; color:#666;">Stok</label>
+                                    <input type="number" id="modal-prod-stok" placeholder="cth. 12"
+                                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
+                                </div>
+                                <div style="flex:1;">
+                                    <label style="font-size:18px; color:#666;">Kategori</label>
+                                    <input type="text" id="modal-prod-kategori" placeholder="cemilan, sembako, dll"
+                                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="font-size:18px; color:#666;">Ekstra / Satuan</label>
+                                <input type="text" id="modal-prod-ekstra" placeholder="cth. 12pcs"
                                     style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
+                            </div>
+
+                            <div>
+                                <label style="font-size:18px; color:#666;">Gambar Produk</label>
+                                <input type="file" id="modal-prod-img" style="font-size:12px; margin-top:5px;">
+                            </div>
+
+                            <div>
+                                <label style="font-size:18px; color:#666;">Keterangan</label>
+                                <textarea id="modal-prod-ket" placeholder="...."
+                                    style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px; height:60px;"></textarea>
                             </div>
                         </div>
 
-                        <div style="display:flex; gap:10px;">
-                            <div style="flex:1;">
-                                <label style="font-size:18px; color:#666;">Stok</label>
-                                <input type="number" id="modal-prod-stok" placeholder="cth. 12"
-                                    style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
-                            </div>
-                            <div style="flex:1;">
-                                <label style="font-size:18px; color:#666;">Kategori</label>
-                                <input type="text" id="modal-prod-kategori" placeholder="cemilan, sembako, dll"
-                                    style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
-                            </div>
+                        <div style="margin-top:25px; display:flex; gap:10px;">
+                            <button onclick="modalSimpanProduk()"
+                                style="flex:2; background:#2ecc71; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; font-weight:bold;">Simpan</button>
+                            <button onclick="closeProdukModal()"
+                                style="flex:1; background:#95a5a6; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">Batal</button>
                         </div>
-
-                        <div>
-                            <label style="font-size:18px; color:#666;">Ekstra / Satuan</label>
-                            <input type="text" id="modal-prod-ekstra" placeholder="cth. 12pcs"
-                                style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px;">
-                        </div>
-
-                        <div>
-                            <label style="font-size:18px; color:#666;">Gambar Produk</label>
-                            <input type="file" id="modal-prod-img" style="font-size:12px; margin-top:5px;">
-                        </div>
-
-                        <div>
-                            <label style="font-size:18px; color:#666;">Keterangan</label>
-                            <textarea id="modal-prod-ket" placeholder="...."
-                                style="width:100%; padding:8px; border:1px solid #ddd; border-radius:5px; height:60px;"></textarea>
-                        </div>
-                    </div>
-
-                    <div style="margin-top:25px; display:flex; gap:10px;">
-                        <button onclick="modalSimpanProduk()"
-                            style="flex:2; background:#2ecc71; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; font-weight:bold;">Simpan</button>
-                        <button onclick="closeProdukModal()"
-                            style="flex:1; background:#95a5a6; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">Batal</button>
                     </div>
                 </div>
-            </div>
 
-            <!--<section id="page-riwayat-tutup-kasir" class="app-page" style="display:none;">
+                <!--<section id="page-riwayat-tutup-kasir" class="app-page" style="display:none;">
                 <h2>Riwayat Tutup Kasir</h2>
                 <div style="margin-bottom:10px;display:flex;gap:10px;align-items:center;">
                     <span>Dari:</span>
@@ -533,44 +432,46 @@
                 <div id="riwayat-tutupkasir-table" class="riwayat-table"></div>
             </section> -->
 
-            <section id="page-laporan" class="app-page" style="height: 85vh; overflow-y: auto; padding-right: 10px;">
-                <h2>Daftar Transaksi</h2>
-                <section id="laporan-summary" style="display:none;margin-bottom:30px;">
-                    <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
-
-                    </div>
-                </section>
-
-                <section id="laporan-piutang-summary" style="display:none;margin-bottom:30px;">
-                    <div style="display:flex;gap: 5px;">
-                        <div style="flex:1;min-width:220px;background:#f8f8f8;padding:18px 20px;border-radius:12px;">
+                <section id="page-laporan" class="app-page"
+                    style="height: 85vh; overflow-y: auto; padding-right: 10px;">
+                    <h2>Daftar Transaksi</h2>
+                    <section id="laporan-summary" style="display:none;margin-bottom:30px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
 
                         </div>
+                    </section>
+
+                    <section id="laporan-piutang-summary" style="display:none;margin-bottom:30px;">
+                        <div style="display:flex;gap: 5px;">
+                            <div
+                                style="flex:1;min-width:220px;background:#f8f8f8;padding:18px 20px;border-radius:12px;">
+
+                            </div>
+                    </section>
+
+                    <section id="laporan-table-section" style="margin-top:40px;">
+                        <div id="riwayat-list" class="riwayat-table"></div>
+                    </section>
+                    <section id="laporan-summary-table" style="margin-bottom:30px;">
+                    </section>
                 </section>
 
-                <section id="laporan-table-section" style="margin-top:40px;">
-                    <div id="riwayat-list" class="riwayat-table"></div>
-                </section>
-                <section id="laporan-summary-table" style="margin-bottom:30px;">
-                </section>
-            </section>
-
-            <section id="page-piutang" class="app-page" style="height: 85vh; overflow-y: auto;">
-                <div id="drop-zone-delete" ondragover="allowDrop(event)" ondrop="dropToDelete(event)" style="position: fixed; bottom: 30px; right: 30px; width: 80px; height: 80px; background:
+                <section id="page-piutang" class="app-page" style="height: 85vh; overflow-y: auto;">
+                    <div id="drop-zone-delete" ondragover="allowDrop(event)" ondrop="dropToDelete(event)" style="position: fixed; bottom: 30px; right: 30px; width: 80px; height: 80px; background:
                 #e74c3c; color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center;
                 justify-content: center; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); cursor: pointer; z-index: 9999;
                 transition: all 0.3s ease; border: 3px solid white;"> <i class="fas fa-trash-alt"></i>
-                    <span>HAPUS</span>
-                </div>
+                        <span>HAPUS</span>
+                    </div>
 
-                <h2>Daftar Piutang</h2>
-                <div style="display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap;">
+                    <h2>Daftar Piutang</h2>
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap;">
 
-                    <div class="search-container" style="position: relative; flex: 1; min-width: 200px;">
-                        <input type="text" id="piutang-search-nama" placeholder="Cari nama..."
-                            oninput="this.nextElementSibling.style.display = this.value ? 'block' : 'none'; renderPiutang()"
-                            style="width: 100%; padding: 10px; padding-right: 35px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
-                        <button type="button" onclick="resetPiutangSearch()" style="width: 100px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+                        <div class="search-container" style="position: relative; flex: 1; min-width: 200px;">
+                            <input type="text" id="piutang-search-nama" placeholder="Cari nama..."
+                                oninput="this.nextElementSibling.style.display = this.value ? 'block' : 'none'; renderPiutang()"
+                                style="width: 100%; padding: 10px; padding-right: 35px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box;">
+                            <button type="button" onclick="resetPiutangSearch()" style="width: 100px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center;
                background-color: #e4685d; 
                border: 1px solid #ffffff; 
                border-radius: 10px; 
@@ -583,156 +484,281 @@
                transition: all 0.2s;
                flex-shrink: 0;
                line-height: 0;">
-                            &times;
-                        </button>
+                                &times;
+                            </button>
 
+                        </div>
+
+                        <input type="date" id="piutang-search-tanggal" oninput="filterPiutang()"
+                            style="padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+
+                        <select id="filter-status-lunas" onchange="renderPiutang()"
+                            style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; background: white; cursor: pointer;">
+                            <option value="semua">Semua Status</option>
+                            <option value="belum">🔴 Belum Lunas</option>
+                            <option value="sudah">🟢 Sudah Lunas</option>
+                        </select>
+
+                        <button class="btn-primary" onclick="exportPiutangExcel()"><i class="fas fa-file-excel"></i>
+                            Ekspor
+                            ke Excel</button>
                     </div>
 
-                    <input type="date" id="piutang-search-tanggal" oninput="filterPiutang()"
-                        style="padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                    <div id="piutang-list"></div>
+                </section>
 
-                    <select id="filter-status-lunas" onchange="renderPiutang()"
-                        style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; background: white; cursor: pointer;">
-                        <option value="semua">Semua Status</option>
-                        <option value="belum">🔴 Belum Lunas</option>
-                        <option value="sudah">🟢 Sudah Lunas</option>
-                    </select>
-
-                    <button class="btn-primary" onclick="exportPiutangExcel()"><i class="fas fa-file-excel"></i> Ekspor
-                        ke Excel</button>
-                </div>
-
-                <div id="piutang-list"></div>
-            </section>
-
-            <section id="user-modal"
-                style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
-                <div style="background:white;padding:30px 70px;border-radius:12px;text-align:center;max-width:90vw;">
-                    <h2>Pilih Nama Kasir</h2>
-                    <div style="margin:20px 0;display:flex;flex-direction:column;gap:18px; padding:5px 5px;">
-                        <button class="user-btn" onclick="playSound('click.mp3'); selectUser('mama')">Mama</button>
-                        <button class="user-btn" onclick="playSound('click.mp3'); selectUser('papa')">Papa</button>
-                        <button class="user-btn" onclick="playSound('click.mp3'); selectUser('titi')">Titi</button>
-                        <button class="user-btn" onclick="playSound('click.mp3'); selectUser('elin')">Elin</button>
-                        <button class="user-btn" onclick="playSound('click.mp3'); selectUser('dio')">Dio</button>
+                <section id="user-modal"
+                    style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+                    <div
+                        style="background:white;padding:30px 70px;border-radius:12px;text-align:center;max-width:90vw;">
+                        <h2>Pilih Nama Kasir</h2>
+                        <div style="margin:20px 0;display:flex;flex-direction:column;gap:18px; padding:5px 5px;">
+                            <button class="user-btn" onclick="playSound('click.mp3'); selectUser('mama')">Mama</button>
+                            <button class="user-btn" onclick="playSound('click.mp3'); selectUser('papa')">Papa</button>
+                            <button class="user-btn" onclick="playSound('click.mp3'); selectUser('titi')">Titi</button>
+                            <button class="user-btn" onclick="playSound('click.mp3'); selectUser('elin')">Elin</button>
+                            <button class="user-btn" onclick="playSound('click.mp3'); selectUser('dio')">Dio</button>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section id="produk-modal"
-                style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
-                <div
-                    style="background:white;padding:30px 40px;border-radius:12px;text-align:center;max-width:500px;width:90vw;min-width:320px;position:relative;">
-                    <button onclick="closeProdukModal()"
-                        style="position:absolute;top:18px;right:18px;font-size:1.5em;background:none;border:none;color:#888;cursor:pointer;z-index:10;">&times;</button>
-                    <h2 id="produk-modal-title">Tambah Produk</h2>
-                    <div class="form-container" style="box-shadow:none;margin: 20px;max-width:unset;">
-                        <input type="text" id="modal-prod-nama" placeholder="Nama Barang">
-                        <input type="number" id="modal-prod-harga-jual" placeholder="Harga Jual">
-                        <input type="number" id="modal-prod-harga-beli" placeholder="Harga Beli">
-                        <input type="number" id="modal-prod-stok" placeholder="Jumlah Stok">
-                        <input type="text" id="modal-prod-ekstra" placeholder="Produk Ekstra (opsional)">
-                        <select id="modal-prod-kategori" style="width:100%; padding:8px; margin-bottom:10px;">
-                        </select> <textarea id="modal-prod-ket" placeholder="Keterangan Produk"
-                            style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:8px;"></textarea>
-                        <input type="file" id="modal-prod-img" accept="image/*" style="margin-bottom:15px;">
-                        <button class="btn-primary" id="modal-produk-submit-btn"
-                            onclick="modalSimpanProduk()">Simpan</button>
-                        <button class="btn-secondary" id="modal-produk-cancel-btn" style="margin-left:10px;"
-                            onclick="closeProdukModal()">Batal</button>
+                <section id="produk-modal"
+                    style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+                    <div
+                        style="background:white;padding:30px 40px;border-radius:12px;text-align:center;max-width:500px;width:90vw;min-width:320px;position:relative;">
+                        <button onclick="closeProdukModal()"
+                            style="position:absolute;top:18px;right:18px;font-size:1.5em;background:none;border:none;color:#888;cursor:pointer;z-index:10;">&times;</button>
+                        <h2 id="produk-modal-title">Tambah Produk</h2>
+                        <div class="form-container" style="box-shadow:none;margin: 20px;max-width:unset;">
+                            <input type="text" id="modal-prod-nama" placeholder="Nama Barang">
+                            <input type="number" id="modal-prod-harga-jual" placeholder="Harga Jual">
+                            <input type="number" id="modal-prod-harga-beli" placeholder="Harga Beli">
+                            <input type="number" id="modal-prod-stok" placeholder="Jumlah Stok">
+                            <input type="text" id="modal-prod-ekstra" placeholder="Produk Ekstra (opsional)">
+                            <select id="modal-prod-kategori" style="width:100%; padding:8px; margin-bottom:10px;">
+                            </select> <textarea id="modal-prod-ket" placeholder="Keterangan Produk"
+                                style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ddd;border-radius:8px;"></textarea>
+                            <input type="file" id="modal-prod-img" accept="image/*" style="margin-bottom:15px;">
+                            <button class="btn-primary" id="modal-produk-submit-btn"
+                                onclick="modalSimpanProduk()">Simpan</button>
+                            <button class="btn-secondary" id="modal-produk-cancel-btn" style="margin-left:10px;"
+                                onclick="closeProdukModal()">Batal</button>
+                        </div>
                     </div>
+                </section>
+                <!--<button id="tutup-kasir-btn" class="btn-danger" style="position:fixed;bottom:30px;left:30px;z-index:2000;background:#e74c3c;color:white;border-radius:50%;width:60px;height:60px;font-size:2em;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);" onclick="tutupKasir()"><i class="fas fa-door-closed"></i></button>-->
+                <div class="main-content" style="flex-grow: 1; overflow-y: auto; background: #f4f7f6; padding: 20px;">
+                    <!--new featres-->
+                    <section id="page-galon" class="app-page" style="display:none; padding:20px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                            <h2>
+                                <i class="fas fa-faucet-drip" style="color:#3498db;"></i> Manajemen Galon
+                                <i class="fas fa-cog" onclick="openMaxEditor('galon')"
+                                    style="font-size:20px; color:#ccc; cursor:pointer; margin-left:10px; margin-right: 10px;"></i>
+                            </h2>
+                            <div id="galon-header-status"
+                                style="font-size: 18px; font-weight: bold; background: white; padding: 10px 15px; border-radius: 10px;">
+                            </div>
+                        </div>
+                        <div id="galon-list"
+                            style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:15px;">
+                        </div>
+                        <button class="tambah-produk-btn" onclick="openInvModal('galon')" style="background:#3498db;"><i
+                                class="fas fa-plus"></i></button>
+                    </section>
+
+                    <section id="page-gas" class="app-page" style="display:none; padding:20px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                            <h2>
+                                <i class="fas fa-fire-burner" style="color:#e67e22;"></i> Manajemen Gas
+                                <i class="fas fa-cog" onclick="openMaxEditor('gas')"
+                                    style="font-size:14px; color:#ccc; cursor:pointer; margin-left:10px; margin-right: 10px;"></i>
+                            </h2>
+                            <div id="gas-header-status"
+                                style="font-size: 18px; font-weight: bold; background: white; padding: 10px 15px; border-radius: 10px;">
+                            </div>
+                        </div>
+                        <div id="gas-list"
+                            style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:15px;">
+                        </div>
+                        <button class="tambah-produk-btn" onclick="openInvModal('gas')" style="background:#e67e22;"><i
+                                class="fas fa-plus"></i></button>
+                    </section>
+
+                    <section id="page-koin" class="app-page" style="display:none; padding:20px;">
+                        <h2><i class="fas fa-coins" style="color:#f1c40f;"></i> Tabungan Koin 500</h2>
+                        <div
+                            style="background:white; padding:20px; border-radius:12px; margin-top:20px; box-shadow:0 4px 15px rgba(0,0,0,0.05);">
+                            <table style="width:100%; border-collapse: collapse;">
+                                <tbody id="koin-list"></tbody>
+                            </table>
+                            <button onclick="tambahPenabung()"
+                                style="margin-top:20px; width:100%; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">+
+                                Tambah Nama Penabung</button>
+                        </div>
+
+                        <div id="modal-koin" class="modal-overlay" style="display:none;">
+                            <div class="modal-content-box" style="width: 300px;">
+                                <h3>Tambah Penabung</h3>
+                                <input type="text" id="input-nama-koin" placeholder="Nama Penabung..."
+                                    autocomplete="off"
+                                    style="width:100%; padding:12px; margin:15px 0; border-radius:8px; border:1px solid #ddd;">
+                                <div style="display:flex; gap:10px;">
+                                    <button onclick="simpanPenabungKoin()"
+                                        style="flex:1; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold;">SIMPAN</button>
+                                    <button onclick="document.getElementById('modal-koin').style.display='none'"
+                                        style="flex:1; padding:12px; background:#95a5a6; color:white; border:none; border-radius:8px;">BATAL</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                    <div id="modal-inv" class="modal-overlay" style="display:none;">
+                        <div class="modal-content-box" style="width: 350px;">
+                            <h3 id="inv-title">Catat Galon</h3>
+                            <input type="text" id="inv-nama-input" placeholder="Nama Pelanggan..." autocomplete="off"
+                                style="width:100%; padding:12px; margin:15px 0; border-radius:8px; border:1px solid #ddd;">
+
+                            <div
+                                style="display:flex; justify-content:space-around; background:#f9f9f9; padding:20px; border-radius:15px; margin-bottom:20px;">
+                                <div onclick="toggleIcon('isi')" id="icon-isi"
+                                    style="text-align:center; cursor:pointer; filter:grayscale(100%); opacity:0.4;">
+                                    <i class="fas fa-tint" style="font-size:30px; color:#3498db;"></i>
+                                    <div style="font-size:10px; margin-top:5px; font-weight:bold;">ISI</div>
+                                </div>
+
+                                <div onclick="toggleIcon('wadah')" id="icon-wadah"
+                                    style="text-align:center; cursor:pointer; filter:grayscale(100%); opacity:0.4;">
+                                    <i class="fas fa-wine-bottle" id="wadah-img"
+                                        style="font-size:30px; color: #344aa3;"></i>
+                                    <div style="font-size:10px; margin-top:5px; font-weight:bold;">WADAH</div>
+                                </div>
+                                <div onclick="toggleIcon('bayar')" id="icon-bayar"
+                                    style="text-align:center; cursor:pointer; filter:grayscale(100%); opacity:0.4;">
+                                    <i class="fas fa-dollar-sign" style="font-size:30px; color:#2ecc71;"></i>
+                                    <div style="font-size:10px; margin-top:5px; font-weight:bold;">BAYAR</div>
+                                </div>
+
+                            </div>
+
+                            <div style="display:flex; gap:10px;">
+                                <button onclick="simpanInv()"
+                                    style="flex:1; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold;">SIMPAN</button>
+                                <button onclick="document.getElementById('modal-inv').style.display='none'"
+                                    style="flex:1; padding:12px; background:#95a5a6; color:white; border:none; border-radius:8px;">BATAL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modal-max-stok" class="modal-overlay" style="display:none;">
+                        <div class="modal-content-box" style="width: 300px;">
+                            <h3>Set Maksimal Stok</h3>
+                            <p style="font-size: 12px; color: #666;">Ubah kapasitas total galon/gas di toko.</p>
+                            <input type="number" id="input-max-stok"
+                                style="width:100%; padding:12px; margin:15px 0; border-radius:8px; border:1px solid #ddd;">
+                            <div style="display:flex; gap:10px;">
+                                <button onclick="simpanMaxStok()"
+                                    style="flex:1; padding:12px; background:#2ecc71; color:white; border:none; border-radius:8px; font-weight:bold;">SIMPAN</button>
+                                <button onclick="document.getElementById('modal-max-stok').style.display='none'"
+                                    style="flex:1; padding:12px; background:#95a5a6; color:white; border:none; border-radius:8px;">BATAL</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </section>
-            <!--<button id="tutup-kasir-btn" class="btn-danger" style="position:fixed;bottom:30px;left:30px;z-index:2000;background:#e74c3c;color:white;border-radius:50%;width:60px;height:60px;font-size:2em;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);" onclick="tutupKasir()"><i class="fas fa-door-closed"></i></button>-->
-
-        </main>
-    </div>
-
-
-    <script src="index.js"></script>
-
-    <div id="notification-stack" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 300px;"></div>
-
-    <div id="notif-laci" class="laci-closed">
-        <div id="laci-handle" onclick="toggleLaci()">
-            <span id="laci-count">0</span>
+            </main>
         </div>
 
-        <div id="laci-content" style="display: flex; flex-direction: column; height: 100%;">
-            <div class="laci-header"
-                style="display:flex; justify-content:space-between; align-items:center; padding: 20px 20px 15px 20px; border-bottom: 1px solid #eee;">
-                <h3 style="margin:0; font-size:1.1rem; color: #2c3e50;">Tagihan Hari Ini</h3>
-                <button onclick="toggleLaci()"
-                    style="background:none; border:none; font-size:24px; cursor:pointer; color:#95a5a6;">&times;</button>
+
+        <script src="index.js"></script>
+
+        <div id="notification-stack" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 300px;">
+        </div>
+
+        <div id="notif-laci" class="laci-closed">
+            <div id="laci-handle" onclick="toggleLaci()">
+                <span id="laci-count">0</span>
             </div>
 
-            <div id="laci-list" style="padding: 15px; overflow-y: auto; flex-grow: 1;">
+            <div id="laci-content" style="display: flex; flex-direction: column; height: 100%;">
+                <div class="laci-header"
+                    style="display:flex; justify-content:space-between; align-items:center; padding: 20px 20px 15px 20px; border-bottom: 1px solid #eee;">
+                    <h3 style="margin:0; font-size:1.1rem; color: #2c3e50;">Tagihan Hari Ini</h3>
+                    <button onclick="toggleLaci()"
+                        style="background:none; border:none; font-size:24px; cursor:pointer; color:#95a5a6;">&times;</button>
+                </div>
+
+                <div id="laci-list" style="padding: 15px; overflow-y: auto; flex-grow: 1;">
+                </div>
             </div>
         </div>
-    </div>
-    <div id="modal-due-date"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center; backdrop-filter: blur(4px);">
-        <div
-            style="background:white; padding:25px; border-radius:15px; width:320px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.1);">
-            <h3 style="margin-top:0; color:#1e293b; text-align:center;">Bayar Kapan?</h3>
-            <input type="date" id="input-jatuh-tempo"
-                style="width:100%; padding:12px; margin-bottom:15px; border:2px solid #e2e8f0; border-radius:8px; font-size:16px;">
-            <div style="display:flex; flex-direction:column; gap:10px;">
-                <button onclick="confirmPiutang()"
-                    style="background:#22c55e; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">Setuju
-                    (Accept)</button>
-                <button onclick="nantiPiutang()"
-                    style="background:#64748b; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">Nanti
-                    (Besok)</button>
-                <button onclick="closeDueDateModal()"
-                    style="background:transparent; color:#94a3b8; border:none; padding:5px; cursor:pointer; font-size:14px;">Batal</button>
+        <div id="modal-due-date"
+            style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:10001; align-items:center; justify-content:center; backdrop-filter: blur(4px);">
+            <div
+                style="background:white; padding:25px; border-radius:15px; width:320px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.1);">
+                <h3 style="margin-top:0; color:#1e293b; text-align:center;">Bayar Kapan?</h3>
+                <input type="date" id="input-jatuh-tempo"
+                    style="width:100%; padding:12px; margin-bottom:15px; border:2px solid #e2e8f0; border-radius:8px; font-size:16px;">
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <button onclick="confirmPiutang()"
+                        style="background:#22c55e; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">Setuju
+                        (Accept)</button>
+                    <button onclick="nantiPiutang()"
+                        style="background:#64748b; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">Nanti
+                        (Besok)</button>
+                    <button onclick="closeDueDateModal()"
+                        style="background:transparent; color:#94a3b8; border:none; padding:5px; cursor:pointer; font-size:14px;">Batal</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="laci-handle" onclick="toggleLaci()"
-        style="position: absolute; left: -45px; top: 20px; width: 45px; height: 90px; background: #ffffff; border-radius: 40px 0 0 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: -5px 0 15px rgba(0,0,0,0.1);">
-        <i class="fas fa-bell" style="color: #e67e22; font-size: 20px;"></i>
+        <div id="laci-handle" onclick="toggleLaci()"
+            style="position: absolute; left: -45px; top: 20px; width: 45px; height: 90px; background: #ffffff; border-radius: 40px 0 0 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: -5px 0 15px rgba(0,0,0,0.1);">
+            <i class="fas fa-bell" style="color: #e67e22; font-size: 20px;"></i>
 
-        <div id="badge-laci"
-            style="position: absolute; top: 15px; right: 5px; background: #e74c3c; color: white; font-size: 11px; font-weight: bold; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
-            0
+            <div id="badge-laci"
+                style="position: absolute; top: 15px; right: 5px; background: #e74c3c; color: white; font-size: 11px; font-weight: bold; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                0
+            </div>
+
+        </div>
+        <div id="drag-ghost-container" style="position: absolute; top: -1000px; left: -1000px; pointer-events: none;">
         </div>
 
-    </div>
-    <div id="drag-ghost-container" style="position: absolute; top: -1000px; left: -1000px; pointer-events: none;"></div>
+        <div id="blur-overlay"
+            style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); backdrop-filter:blur(10px); z-index:9998; pointer-events:none;">
+        </div>
+        <!--only for putang window calendar-->
+        <div id="modal-due-date"
+            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 9999; justify-content: center; align-items: center;">
+            <div
+                style="background: white; padding: 25px; border-radius: 15px; width: 300px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;">
+                <h3 style="margin-bottom: 15px; color: #333;">Bayar Kapan?</h3>
 
-    <div id="blur-overlay"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); backdrop-filter:blur(10px); z-index:9998; pointer-events:none;">
-    </div>
-    <!--only for putang window calendar-->
-    <div id="modal-due-date"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 9999; justify-content: center; align-items: center;">
-        <div
-            style="background: white; padding: 25px; border-radius: 15px; width: 300px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;">
-            <h3 style="margin-bottom: 15px; color: #333;">Bayar Kapan?</h3>
+                <input type="date" id="input-jatuh-tempo"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; font-size: 16px;">
 
-            <input type="date" id="input-jatuh-tempo"
-                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; font-size: 16px;">
-
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button onclick="confirmPiutang()"
-                    style="background: #2ecc71; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">
-                    Konfirmasi
-                </button>
-                <button onclick="nantiPiutang()"
-                    style="background: #3498db; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">
-                    Besok (Nanti)
-                </button>
-                <button onclick="closeDueDateModal()"
-                    style="background: transparent; color: #999; border: none; padding: 5px; cursor: pointer;">
-                    Batal
-                </button>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button onclick="confirmPiutang()"
+                        style="background: #2ecc71; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                        Konfirmasi
+                    </button>
+                    <button onclick="nantiPiutang()"
+                        style="background: #3498db; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                        Besok (Nanti)
+                    </button>
+                    <button onclick="closeDueDateModal()"
+                        style="background: transparent; color: #999; border: none; padding: 5px; cursor: pointer;">
+                        Batal
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-</body>
-
+    </body>
 
 </html>

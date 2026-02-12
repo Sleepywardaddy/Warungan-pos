@@ -56,6 +56,14 @@ function showPage(pageId) {
     if (pageId === 'page-log-mutasi' || pageId === 'page-riwayat-kas') {
         renderLogMutasi();
     }
+
+    const sidebar = document.querySelector('.sidebar');
+
+    // Check if sidebar exists and has the 'active' class (which means it's open)
+    if (sidebar && sidebar.classList.contains('active')) {
+        // We call toggleSidebar() to trigger the closing animation
+        toggleSidebar();
+    }
 }
 
 // Optional: Show default page on load
@@ -1538,6 +1546,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkDuePiutang() {
+    
     const today = new Date().toISOString().slice(0, 10);
     const dueItems = piutangList.filter(p => p.lunas === false && p.tanggal <= today);
 
@@ -1731,7 +1740,18 @@ function checkDuePiutang() {
             // --- LOGIKA TOMBOL (Langsung dipasang di sini) ---
 
             // 1. Tombol Close
-            card.querySelector('.close-btn').onclick = () => card.remove();
+            card.querySelector('.close-btn').onclick = () => {
+                card.remove(); // Removes the specific card
+
+                // Check if the list is now empty
+                const list = document.getElementById('laci-list');
+                const laci = document.getElementById('notif-laci');
+
+                if (list.children.length === 0) {
+                    // If no cards are left, make the whole laci disappear
+                    laci.style.display = 'none';
+                }
+            };
 
             // 2. Tombol Detail
             card.querySelector('.detail-btn').onclick = () => lihatDetailDariLaci(item.nama);
@@ -1779,6 +1799,9 @@ function toggleLaci() {
     const laci = document.getElementById('notif-laci');
     laci.classList.toggle('laci-closed');
 }
+
+//hide laci
+
 
 function bukaPiutangDariLaci(nama) {
     // 1. Arahkan ke section/halaman piutang (jika aplikasi Anda SPA/single page)
@@ -2818,7 +2841,7 @@ function exportMutasiExcel() {
 
     let csvContent = "Tanggal,Waktu,Jenis,Nominal,Keterangan\n";
     logKasMutasi.forEach(m => {
-        csvContent += `${m.tanggal},${m.waktu},${m.jenis},${m.nominal},"${m.keterangan}"\n`;
+        csvContent += `'${m.tanggal},${m.waktu},${m.jenis},${m.nominal},"${m.keterangan}"\n`;
     });
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -2856,10 +2879,10 @@ function renderLogMutasi() {
 
     // 1. Frame Utama (Header & Filter UI)
     const headerHTML = `
-    <div style="padding: 10px;">
-        <h3 style="text-align:center; margin-bottom:20px;">Riwayat Mutasi Kas</h3>
+    <div id="container-kas" style="padding: 10px;">
+        <h3 id="kas-header" style="text-align:left; margin:10px;">filter pencarian</h3>
 
-        <div style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center;">
+        <div id="filter-kas-container" style="background: white; padding: 15px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: left; justify-content: center;">
             <div style="position: relative; flex: 2; min-width: 100px;">
                 <input type="text" id="filter-kas-nama" placeholder="Cari keterangan..." 
                     oninput="filterRiwayatKas()" 
@@ -2875,12 +2898,12 @@ function renderLogMutasi() {
             ${dropdownKasirHTML}
 
             <div style="display: flex; gap: 5px; align-items: center; flex: 1.5;">
-                <input type="date" id="filter-kas-start" onchange="filterRiwayatKas()" style="padding: 8px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
+                <span>Dari tanggal:</span><input type="date" id="filter-kas-start" onchange="filterRiwayatKas()" style="padding: 8px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
                 <span>-</span>
-                <input type="date" id="filter-kas-end" onchange="filterRiwayatKas()" style="padding: 8px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
+                <span>sampai tanggal:</span><input type="date" id="filter-kas-end" onchange="filterRiwayatKas()" style="padding: 8px; border-radius: 8px; border: 1px solid #ddd; width: 100%;">
             </div>
             <button onclick="resetSemuaFilterKas()" 
-                style="padding: 10px 20px; background: #95a5a6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                id="resetfilterkas" style="padding: 10px 20px; background: #95a5a6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
                 Reset
             </button>
         </div>
@@ -3251,18 +3274,18 @@ function simpanInv() {
 // Fungsi menghitung notifikasi hutang (both galon and gas)
 function updateDebtBadge() {
     // 1. Hitung hutang Galon (Data yang belum tuntas)
-    const hutangGalon = galonData.filter(d => 
+    const hutangGalon = galonData.filter(d =>
         d.isi !== 'Ambil' || d.wadah !== 'Tukar' || d.bayar !== 'Lunas'
     ).length;
 
     // 2. Hitung hutang Gas (Data yang belum tuntas)
-    const hutangGas = (typeof gasData !== 'undefined') ? gasData.filter(d => 
+    const hutangGas = (typeof gasData !== 'undefined') ? gasData.filter(d =>
         d.isi !== 'Ambil' || d.wadah !== 'Tukar' || d.bayar !== 'Lunas'
     ).length : 0;
 
     // 3. Cari elemen menu berdasarkan teksnya (Cara paling aman)
     const menuLinks = document.querySelectorAll('.sidebar li');
-    
+
     menuLinks.forEach(link => {
         if (link.innerText.includes('Galon')) {
             updateElementBadge(link, hutangGalon);
@@ -3589,17 +3612,7 @@ window.addEventListener('touchmove', (e) => {
     }
 }, { passive: true });
 
-window.addEventListener('touchend', () => {
-    if (pullToRefresh.style.display === 'flex') {
-        // Jalankan fungsi refresh yang sudah kita buat tadi
-        refreshSemuaData();
 
-        // Sembunyikan kembali setelah 1 detik
-        setTimeout(() => {
-            pullToRefresh.style.display = 'none';
-        }, 1000);
-    }
-});
 
 //user new sakit pala ajg
 function selectUser(nama) {
@@ -3765,3 +3778,34 @@ function secretCrash() {
         crashClickCount = 0;
     }
 }
+
+//mobile friendly sidebar
+// Fungsi Buka Tutup Sidebar Mobile
+// Fungsi Buka Tutup Sidebar Mobile
+function toggleSidebar(event) {
+    if (event) event.stopPropagation();
+
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+        sidebar.classList.toggle('active');
+        console.log("Sidebar toggled!"); // Check your browser console for this!
+    } else {
+        console.error("Could not find element with class '.sidebar'");
+    }
+}
+
+document.addEventListener('click', function (event) {
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menu-mobile');
+
+    // Only run the 'close' logic if the sidebar actually exists and is active
+    if (sidebar && sidebar.classList.contains('active')) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnButton = menuBtn && menuBtn.contains(event.target);
+
+        if (!isClickInsideSidebar && !isClickOnButton) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+//the rest
