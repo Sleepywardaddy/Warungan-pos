@@ -3851,7 +3851,7 @@ window.addEventListener('load', async () => {
             koinData = dataAwan.koinData;
             logKasMutasi = dataAwan.logKasMutasi;
 
-            simpanSemuaData(); // Save to local storage
+            saveAllData(); // Save to local storage
             renderProduk();    // Refresh the screen
             console.log("✅ Data Cloud Dimuat!");
         }
@@ -3859,4 +3859,5 @@ window.addEventListener('load', async () => {
         console.log("⚠️ Pakai data lokal (Offline).");
     }
 });
+
 
