@@ -2404,43 +2404,7 @@ function refreshPage() {
     console.log("Page refreshed successfully");
 }
 
-let touchStartPoint = 0;
-
-window.addEventListener('touchstart', (e) => {
-    // Simpan titik awal sentuhan jika user berada di paling atas halaman
-    if (window.scrollY === 0) {
-        touchStartPoint = e.touches[0].pageY;
-    }
-}, { passive: true });
-
-window.addEventListener('touchend', (e) => {
-    const touchEndPoint = e.changedTouches[0].pageY;
-
-    // Jika user menarik ke bawah sejauh lebih dari 150 pixel
-    if (window.scrollY === 0 && touchEndPoint - touchStartPoint > 150) {
-        // Jalankan fungsi refresh Anda
-        refreshPage();
-
-        // Berikan feedback visual (getaran singkat jika di HP)
-        if (window.navigator.vibrate) window.navigator.vibrate(50);
-
-        // Beritahu user data sudah diperbarui
-        showToast("Data Diperbarui");
-    }
-}, { passive: true });
-
-// Fungsi tambahan untuk notifikasi simpel (pengganti alert)
-function showToast(message) {
-    const toast = document.createElement("div");
-    toast.textContent = message;
-    toast.style.cssText = `
-        position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-        background: rgba(0,0,0,0.7); color: white; padding: 10px 20px;
-        border-radius: 20px; font-size: 12px; z-index: 10000;
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 2000);
-}
+//just deleted the refresh ill use the default broswer refresh (2/17/2026/5:25)
 
 function clearSearchInput(inputId, onInputFunc) {
     const input = document.getElementById(inputId);
@@ -3931,6 +3895,7 @@ window.addEventListener('load', () => {
         document.getElementById('login-screen').style.display = 'none';
     }
 });
+
 
 
 
