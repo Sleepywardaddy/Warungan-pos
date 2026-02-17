@@ -770,7 +770,6 @@
     storageBucket: "warungan-6a664.firebasestorage.app",
     messagingSenderId: "735702945585",
     appId: "1:735702945585:web:9151a532f21667cc99ea10",
-    // Gunakan URL Singapore jika kamu pilih Singapore saat create tadi
     databaseURL: "https://warungan-6a664-default-rtdb.asia-southeast1.firebasedatabase.app"
   };
 
@@ -778,53 +777,50 @@
   const db = getDatabase(app);
   const dbRef = ref(db, 'warungan_data');
 
-  // Variabel pengaman agar tidak freeze
   window.sedangSinkron = false;
 
-  // AMBIL DATA DARI CLOUD (Otomatis panggil kalau ada perubahan di HP lain)
+  // Listen for cloud changes
   onValue(dbRef, (snapshot) => {
     const data = snapshot.val();
-    if (data) {
-      console.log("☁️ Mengunduh data dari cloud...");
-      window.sedangSinkron = true; // Tutup bendungan
+    if (data && !window.sedangSinkron) {
+      window.sedangSinkron = true; 
 
-      // Pastikan nama variabel (produkList, transaksiLog, dll) 
-      // SAMA dengan yang ada di index.js kamu
-      window.produkList = data.produk || [];
-      window.transaksiLog = data.transaksi || [];
-      window.piutangList = data.piutang || [];
-      window.logKasMutasi = data.mutasi || [];
-      window.saldo = data.saldo || 0;
+      // Update the variables in your index.js directly
+      // Note: These names MUST match your 'let' variable names
+      if (typeof produkList !== 'undefined') produkList = data.produk || [];
+      if (typeof transaksiLog !== 'undefined') transaksiLog = data.transaksi || [];
+      if (typeof piutangList !== 'undefined') piutangList = data.piutang || [];
+      if (typeof logKasMutasi !== 'undefined') logKasMutasi = data.mutasi || [];
+      if (typeof saldo !== 'undefined') saldo = data.saldo || 0;
 
-      // Update tampilan tanpa memicu kirim balik ke cloud
-      if (typeof saveAllData === 'function') saveAllData();
+      // Refresh your UI
       if (typeof renderProduk === 'function') renderProduk();
-      // Tambahkan fungsi render lain jika ada, misal: renderTransaksi();
-
-      setTimeout(() => {
-        window.sedangSinkron = false; // Buka bendungan lagi setelah selesai
-        console.log("✅ Sinkronisasi Selesai.");
-      }, 500);
+      // Add any other render functions you have here
+      
+      console.log("☁️ Cloud Data Downloaded");
+      
+      setTimeout(() => { window.sedangSinkron = false; }, 1000);
     }
   });
 
-  // KIRIM DATA KE CLOUD
-  window.simpanKeCloud = function() {
-    if (window.sedangSinkron) return; // Jangan kirim kalau sedang proses download
+  // This is the function saveAllData calls
+  window.simpanKeCloud = function(p, t, pi, m, s) {
+    if (window.sedangSinkron) return;
     
     set(dbRef, {
-      produk: window.produkList,
-      transaksi: window.transaksiLog,
-      piutang: window.piutangList,
-      mutasi: window.logKasMutasi,
-      saldo: window.saldo,
-      lastUpdate: new Date().getTime()
-    }).then(() => console.log("🚀 Berhasil upload ke Cloud!"));
+      produk: p,
+      transaksi: t,
+      piutang: pi,
+      mutasi: m,
+      saldo: s,
+      time: new Date().getTime()
+    }).then(() => console.log("🚀 Cloud Updated"));
   };
 </script>
     </body>
 
 
 </html>
+
 
 
