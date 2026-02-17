@@ -1231,13 +1231,17 @@ function renderProduk() {
 
 // --- Persistence (localStorage) ---
 function saveAllData() {
+    // 1. Tetap simpan ke memori lokal HP (agar bisa offline)
     localStorage.setItem('warungan_produk', JSON.stringify(produkList));
     localStorage.setItem('warungan_transaksi', JSON.stringify(transaksiLog));
     localStorage.setItem('warungan_piutang', JSON.stringify(piutangList));
     localStorage.setItem('warungan_mutasi_kas', JSON.stringify(logKasMutasi));
-    // Simpan variabel 'saldo', bukan 'saldoUtama' agar sinkron dengan load
     localStorage.setItem('warungan_saldo', saldo);
-    //cloud firebasedb
+
+    // 2. CEK BENDUNGAN: Jika data sedang turun dari cloud, jangan kirim balik ke cloud!
+    if (window.sedangSinkron) return; 
+
+    // 3. Kirim ke Firebase
     if (typeof window.simpanKeCloud === "function") {
         window.simpanKeCloud();
     }
@@ -3873,6 +3877,7 @@ window.addEventListener('load', async () => {
         console.log("⚠️ Pakai data lokal (Offline).");
     }
 });
+
 
 
 
