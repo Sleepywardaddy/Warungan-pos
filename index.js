@@ -3870,6 +3870,68 @@ window.addEventListener('load', async () => {
     }
 });
 
+//the auth
+// Ganti '1234' dengan PIN rahasia kamu
+const PIN_RAHASIA = "120108"; 
+
+// Fungsi saat tombol angka ditekan
+function tekanAngka(angka) {
+    const input = document.getElementById('pin-input');
+    if (input.value.length < 6) { // Batasi 4 digit
+        input.value += angka;
+    }
+}
+
+// Fungsi tombol Backspace (⌫)
+function hapusSatu() {
+    const input = document.getElementById('pin-input');
+    input.value = input.value.slice(0, -1);
+}
+
+// Fungsi Hapus Semua
+function hapusPin() {
+    document.getElementById('pin-input').value = '';
+}
+
+function cekLogin() {
+    const input = document.getElementById('pin-input').value;
+    const errorMsg = document.getElementById('login-error');
+
+    if (input === PIN_RAHASIA) {
+        document.getElementById('login-screen').style.display = 'none';
+        if (document.getElementById('main-container')) {
+            document.getElementById('main-container').style.display = 'block';
+        }
+    } else {
+        errorMsg.style.display = 'block';
+        hapusPin(); // Reset input kalau salah
+        // Sembunyikan error otomatis setelah 2 detik
+        setTimeout(() => { errorMsg.style.display = 'none'; }, 2000);
+    }
+}
+
+// Tambahan: Reset saat refresh
+window.addEventListener('load', () => {
+    localStorage.removeItem('warungan_auth');
+    document.getElementById('login-screen').style.display = 'flex';
+    if (document.getElementById('main-container')) {
+        document.getElementById('main-container').style.display = 'none';
+    }
+});
+
+
+
+// Cek otomatis saat website dibuka
+window.addEventListener('load', () => {
+    const auth = localStorage.getItem('warungan_auth');
+    const now = new Date().getTime();
+
+    if (auth && now < parseInt(auth)) {
+        // Masih dalam masa login (24 jam), langsung buka
+        document.getElementById('login-screen').style.display = 'none';
+    }
+});
+
 
 
 
