@@ -1226,6 +1226,7 @@ function saveAllData() {
     localStorage.setItem('warungan_mutasi_kas', JSON.stringify(logKasMutasi));
     // Simpan variabel 'saldo', bukan 'saldoUtama' agar sinkron dengan load
     localStorage.setItem('warungan_saldo', saldo);
+    if (window.simpanKeCloud) window.simpanKeCloud();
 }
 
 function loadAllData() {
@@ -3858,3 +3859,4 @@ window.addEventListener('load', async () => {
         console.log("⚠️ Pakai data lokal (Offline).");
     }
 });
+
