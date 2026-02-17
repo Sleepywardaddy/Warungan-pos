@@ -760,7 +760,6 @@
         </div>
 <!--fire base api database -->
         <script type="module">
-  // We use the https links so it works directly on your website
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
@@ -771,44 +770,61 @@
     storageBucket: "warungan-6a664.firebasestorage.app",
     messagingSenderId: "735702945585",
     appId: "1:735702945585:web:9151a532f21667cc99ea10",
-    databaseURL: "https://warungan-6a664-default-rtdb.firebaseio.com"
+    // Gunakan URL Singapore jika kamu pilih Singapore saat create tadi
+    databaseURL: "https://warungan-6a664-default-rtdb.asia-southeast1.firebasedatabase.app"
   };
 
-  // Start Firebase
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const dbRef = ref(db, 'warungan_data');
 
-  // AUTO-LOAD: When someone changes data, update your screen automatically
+  // Variabel pengaman agar tidak freeze
+  window.sedangSinkron = false;
+
+  // AMBIL DATA DARI CLOUD (Otomatis panggil kalau ada perubahan di HP lain)
   onValue(dbRef, (snapshot) => {
     const data = snapshot.val();
     if (data) {
-      // These must match the names in your index.js exactly
-      window.daftarProduk = data.daftarProduk || [];
-      window.saldoUtama = data.saldoUtama || 0;
-      window.daftarPiutang = data.daftarPiutang || [];
-      window.galonData = data.galonData || [];
-      window.gasData = data.gasData || [];
-      
-      // Run your refresh functions
-      if (typeof simpanSemuaData === 'function') simpanSemuaData();
+      console.log("☁️ Mengunduh data dari cloud...");
+      window.sedangSinkron = true; // Tutup bendungan
+
+      // Pastikan nama variabel (produkList, transaksiLog, dll) 
+      // SAMA dengan yang ada di index.js kamu
+      window.produkList = data.produk || [];
+      window.transaksiLog = data.transaksi || [];
+      window.piutangList = data.piutang || [];
+      window.logKasMutasi = data.mutasi || [];
+      window.saldo = data.saldo || 0;
+
+      // Update tampilan tanpa memicu kirim balik ke cloud
+      if (typeof saveAllData === 'function') saveAllData();
       if (typeof renderProduk === 'function') renderProduk();
+      // Tambahkan fungsi render lain jika ada, misal: renderTransaksi();
+
+      setTimeout(() => {
+        window.sedangSinkron = false; // Buka bendungan lagi setelah selesai
+        console.log("✅ Sinkronisasi Selesai.");
+      }, 500);
     }
   });
 
-  // THE SYNC FUNCTION: Call this to save to the cloud
+  // KIRIM DATA KE CLOUD
   window.simpanKeCloud = function() {
+    if (window.sedangSinkron) return; // Jangan kirim kalau sedang proses download
+    
     set(dbRef, {
-      daftarProduk: window.daftarProduk,
-      saldoUtama: window.saldoUtama,
-      daftarPiutang: window.daftarPiutang,
-      galonData: window.galonData,
-      gasData: window.gasData
-    });
+      produk: window.produkList,
+      transaksi: window.transaksiLog,
+      piutang: window.piutangList,
+      mutasi: window.logKasMutasi,
+      saldo: window.saldo,
+      lastUpdate: new Date().getTime()
+    }).then(() => console.log("🚀 Berhasil upload ke Cloud!"));
   };
 </script>
     </body>
 
 
 </html>
+
 
