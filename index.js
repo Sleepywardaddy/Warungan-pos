@@ -793,36 +793,42 @@ function renderLaporan() {
     if (laporanStartDate) filtered = filtered.filter(t => t.tanggal >= laporanStartDate);
     if (laporanEndDate) filtered = filtered.filter(t => t.tanggal <= laporanEndDate);
 
-    // --- LOGIKA PERHITUNGAN ---
+    // --- LOGIKA PERHITUNGAN OTOMATIS ---
     let totalOmzet = 0;
     let totalModal = 0;
 
     filtered.forEach(t => {
         const nominal = t.nominal || 0;
-        // Omzet hanya dihitung dari Penjualan, Masuk, atau Pelunasan (bukan hutang)
         if (t.jenis === 'Masuk' || t.jenis === 'Penjualan') {
             totalOmzet += nominal;
-            totalModal += (t.modalTotal || 0);
+            if (t.modalTotal && t.modalTotal > 0) {
+                totalModal += t.modalTotal;
+            } else if (t.detail && Array.isArray(t.detail)) {
+                t.detail.forEach(item => {
+                    const infoProduk = produkList.find(p => p.nama === item.nama);
+                    const hargaBeliAsli = infoProduk ? (parseFloat(infoProduk.hargaModal) || parseFloat(infoProduk.hargaBeli) || 0) : 0;
+                    totalModal += (hargaBeliAsli * (item.qty || 1));
+                });
+            }
         }
     });
 
     let labaBersih = totalOmzet - totalModal;
 
-    // RENDER HTML (Analisis Pundi Dihapus)
+    // RENDER HTML
     list.innerHTML = `
         <h3 style="text-align:center; margin-bottom:20px; color:#333;">Daftar Transaksi</h3>
 
-<div style="position: relative; margin-bottom: 15px;">
-    <input type="text" id="pencarian-nama-laporan" 
-        placeholder="Ketik nama pembeli..." 
-        onkeyup="filterTabelLaporan()" 
-        style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #ddd; border-radius: 5px;">
-    
-    <span onclick="hapusSearchLaporan()" 
-        style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ccc; font-size: 18px;">
-        &times;
-    </span>
-</div>
+        <div style="position: relative; margin-bottom: 15px;">
+            <input type="text" id="pencarian-nama-laporan" 
+                placeholder="Ketik nama pembeli..." 
+                onkeyup="filterTabelLaporan()" 
+                style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <span onclick="hapusSearchLaporan()" 
+                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ccc; font-size: 18px;">
+                &times;
+            </span>
+        </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 25px;">
             <div style="background: #2ecc71; color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
@@ -836,9 +842,15 @@ function renderLaporan() {
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-            <div style='background: white; padding: 10px; border-radius: 8px; border: 1px solid #ddd;'>
-                <label>Dari: <input type='date' id='laporan-start' value='${laporanStartDate}' onchange='setLaporanDateFilter()'></label>
-                <label style='margin-left:10px'>Sampai: <input type='date' id='laporan-end' value='${laporanEndDate}' onchange='setLaporanDateFilter()'></label>
+            <div style='background: white; padding: 10px; border-radius: 8px; border: 1px solid #ddd; display: flex; align-items: center; gap: 10px;'>
+                <label>Dari: <input type='date' id='laporan-start' value='${laporanStartDate || ''}' onchange='setLaporanDateFilter()'></label>
+                <label>Sampai: <input type='date' id='laporan-end' value='${laporanEndDate || ''}' onchange='setLaporanDateFilter()'></label>
+                
+                <button onclick="resetFilterTanggal()" 
+                    style="background: #f1f1f1; border: none; color: #777; cursor: pointer; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 14px;"
+                    title="Reset Filter Tanggal">
+                    &times; reset tanggal
+                </button>
             </div>
             <button class="btn-primary" style="width: auto; margin: 0; background: #27ae60;" onclick="exportLaporanExcel()">
                 <i class="fas fa-file-excel"></i> Ekspor ke Excel
@@ -859,29 +871,59 @@ function renderLaporan() {
                 </thead>
                 <tbody>
                     ${filtered.map((t) => {
-        let displayKet = t.ket || '';
-
-        // Menampilkan detail barang jika ada, menggantikan teks 'Penjualan'
-        if ((displayKet === 'Penjualan' || displayKet === '') && t.detail && t.detail.length > 0) {
-            displayKet = t.detail.map(d => `${d.nama} (${d.qty})`).join(', ');
-        }
-
-        return `
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 12px;">${t.tanggal}</td>
-                            <td style="padding: 12px;">${t.kasir || '-'}</td>
-                            <td style="padding: 12px;"><span style="color:${t.jenis === 'Masuk' || t.jenis === 'Penjualan' ? '#2ecc71' : '#e67e22'}; font-weight:bold;">${t.jenis}</span></td>
-                            <td style="padding: 12px; font-weight:bold; text-align: right;">Rp ${t.nominal.toLocaleString('id-ID')}</td>
-                            <td style="padding: 12px; color: #555;">${displayKet}</td>
-                            <td style="padding: 12px;">${t.pembeli || ''}</td>
-                        </tr>`;
-    }).reverse().join('')}
+                        let displayKet = t.ket || '';
+                        if ((displayKet === 'Penjualan' || displayKet === '') && t.detail && t.detail.length > 0) {
+                            displayKet = t.detail.map(d => `${d.nama} (${d.qty})`).join(', ');
+                        }
+                        return `
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 12px;">${t.tanggal}</td>
+                                <td style="padding: 12px;">${t.kasir || '-'}</td>
+                                <td style="padding: 12px;"><span style="color:${t.jenis === 'Masuk' || t.jenis === 'Penjualan' ? '#2ecc71' : '#e67e22'}; font-weight:bold;">${t.jenis}</span></td>
+                                <td style="padding: 12px; font-weight:bold; text-align: right;">Rp ${t.nominal.toLocaleString('id-ID')}</td>
+                                <td style="padding: 12px; color: #555;">${displayKet}</td>
+                                <td style="padding: 12px;">${t.pembeli || ''}</td>
+                            </tr>`;
+                    }).reverse().join('')}
                 </tbody>
             </table>
         </div>
     `;
 
     if (typeof renderOmzetChart === 'function') renderOmzetChart();
+}
+
+// FUNGSI UNTUK RESET FILTER TANGGAL
+function resetFilterTanggal() {
+    laporanStartDate = "";
+    laporanEndDate = "";
+    renderLaporan();
+}
+
+//for the total omzet and laba bersih 17feb2026
+function bayar() {
+    let totalBelanja = 0;
+    let totalModalTransaksi = 0; // Tambahkan ini
+
+    cart.forEach(item => {
+        totalBelanja += item.harga * item.qty;
+
+        // AMBIL HARGA BELI DARI DATABASE STOK
+        // Pastikan 'item' di cart kamu punya properti hargaBeli
+        totalModalTransaksi += (item.hargaBeli || 0) * item.qty;
+    });
+
+    const dataTransaksi = {
+        tanggal: new Date().toISOString().split('T')[0],
+        nominal: totalBelanja,
+        modalTotal: totalModalTransaksi, // INI YANG AKAN DIBACA LAPORAN
+        jenis: 'Penjualan',
+        detail: cart,
+        kasir: userAktif,
+        pembeli: document.getElementById('nama-pembeli').value
+    };
+
+    // Push dataTransaksi ke Firebase...
 }
 
 function filterTabelLaporan() {
@@ -3895,6 +3937,7 @@ window.addEventListener('load', () => {
         document.getElementById('login-screen').style.display = 'none';
     }
 });
+
 
 
 
