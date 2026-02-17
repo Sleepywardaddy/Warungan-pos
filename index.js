@@ -1223,19 +1223,19 @@ function renderProduk() {
 
 // --- Persistence (localStorage) ---
 function saveAllData() {
-    // 1. Tetap simpan ke memori lokal HP (agar bisa offline)
+    // 1. Save to phone memory
     localStorage.setItem('warungan_produk', JSON.stringify(produkList));
     localStorage.setItem('warungan_transaksi', JSON.stringify(transaksiLog));
     localStorage.setItem('warungan_piutang', JSON.stringify(piutangList));
     localStorage.setItem('warungan_mutasi_kas', JSON.stringify(logKasMutasi));
     localStorage.setItem('warungan_saldo', saldo);
 
-    // 2. CEK BENDUNGAN: Jika data sedang turun dari cloud, jangan kirim balik ke cloud!
-    if (window.sedangSinkron) return; 
+    // 2. STOP LOOP: If we are downloading from cloud, don't send it back up!
+    if (window.sedangSinkron) return;
 
-    // 3. Kirim ke Firebase
+    // 3. Send to Firebase
     if (typeof window.simpanKeCloud === "function") {
-        window.simpanKeCloud();
+        window.simpanKeCloud(produkList, transaksiLog, piutangList, logKasMutasi, saldo);
     }
 }
 
@@ -3869,6 +3869,7 @@ window.addEventListener('load', async () => {
         console.log("⚠️ Pakai data lokal (Offline).");
     }
 });
+
 
 
 
