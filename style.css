@@ -1918,26 +1918,38 @@ html {
     border-radius: 4px;
 }
 /*the auth*/
-    .login-card {
-            flex-direction: column; /* Berubah jadi atas-bawah */
-            padding: 30px 20px;
-            gap: 25px;
-            width: 90%;
-            max-width: 350px;
+    #login-screen > div {
+            flex-direction: column !important;
+            max-width: 320px !important;
+            padding: 20px !important;
+            gap: 20px !important;
         }
 
-        .info-column { width: 100%; }
-
-        .numpad-grid {
-            grid-template-columns: repeat(3, 1fr); /* Tombol melebar di HP */
-            width: 100%;
+        /* Memaksa kolom info (logo/input) jadi lebar penuh */
+        #login-screen .info-column, 
+        #login-screen div[style*="width:220px"] {
+            width: 100% !important;
         }
 
+        /* Memaksa grid tombol agar pas di layar HP */
+        #login-screen .numpad-grid,
+        #login-screen div[style*="display:grid"] {
+            grid-template-columns: repeat(3, 1fr) !important;
+            width: 100% !important;
+            gap: 12px !important;
+        }
+
+        /* Memaksa tombol angka lebih lebar & empuk di HP */
         .num-btn {
-            width: 100%;
-            height: 65px;
-            font-size: 26px;
+            width: 100% !important;
+            height: 65px !important;
+            font-size: 24px !important;
         }
+        
+        #pin-input {
+            font-size: 32px !important;
+        }
+}
     
 }
 
@@ -1972,6 +1984,21 @@ html {
 
 
     /* Find the container holding the date filter */
-    
+
+    /*for auth*/
+.login-card {
+            width: 90% !important;
+            padding: 20px !important;
+        }
+        
+        .num-btn {
+            height: 70px !important; /* Tombol lebih besar di HP agar mudah ditekan */
+            font-size: 26px !important;
+        }
+
+        #pin-input {
+            font-size: 32px !important;
+        }
 
 }
+
