@@ -1,3 +1,14 @@
+//firebase db
+// Add these so Firebase can "see" your data
+window.daftarProduk = daftarProduk;
+window.saldoUtama = saldoUtama;
+window.daftarTransaksi = daftarTransaksi;
+window.daftarPiutang = daftarPiutang;
+window.galonData = galonData;
+window.gasData = gasData;
+window.koinData = koinData;
+window.logKasMutasi = logKasMutasi;
+
 // 1. Inisialisasi status mute saat aplikasi pertama kali dimuat
 let isMuted = localStorage.getItem('appMuted') === 'true';
 
@@ -3859,5 +3870,6 @@ window.addEventListener('load', async () => {
         console.log("⚠️ Pakai data lokal (Offline).");
     }
 });
+
 
 
