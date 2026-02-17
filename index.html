@@ -18,20 +18,19 @@
 
     <body>
         <!--auth-->
-        <div id="login-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#f0f2f5; z-index:10000; display:flex; align-items:center; justify-content:center; font-family:sans-serif;">
-    
-    <div class="login-card">
+       <div id="login-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#f0f2f5; z-index:10000; display:flex; align-items:center; justify-content:center; font-family:sans-serif;">
+    <div style="background:white; padding:30px; border-radius:25px; box-shadow:0 15px 35px rgba(0,0,0,0.2); display:flex; gap:30px; align-items:center; max-width:600px;">
         
-        <div class="info-column">
+        <div style="text-align:center; width:220px;">
             <h2 style="margin:0;">🏠 Warungan</h2>
-            <p style="color:#666; font-size:13px; margin-bottom:15px;">Masukkan PIN</p>
+            <p style="color:#666; font-size:13px; margin-bottom:20px;">Masukkan PIN</p>
             <input type="password" id="pin-input" readonly placeholder="****" 
                    style="width:100%; padding:15px; font-size:28px; text-align:center; border:2px solid #eee; border-radius:12px; background:#fafafa; letter-spacing:8px;">
             <p id="login-error" style="color:#e74c3c; font-size:12px; margin-top:10px; display:none;">⚠️ PIN Salah!</p>
-            <button onclick="hapusPin()" style="background:none; border:none; color:#999; cursor:pointer; font-size: 12px; margin-top: 10px;">Hapus Semua</button>
+            <button onclick="hapusPin()" style="margin-top:15px; background:none; border:none; color:#999; cursor:pointer;">Hapus Semua</button>
         </div>
 
-        <div class="numpad-grid">
+        <div style="display:grid; grid-template-columns: repeat(3, 70px); gap:10px;">
             <button class="num-btn" onclick="tekanAngka('1')">1</button>
             <button class="num-btn" onclick="tekanAngka('2')">2</button>
             <button class="num-btn" onclick="tekanAngka('3')">3</button>
@@ -41,32 +40,21 @@
             <button class="num-btn" onclick="tekanAngka('7')">7</button>
             <button class="num-btn" onclick="tekanAngka('8')">8</button>
             <button class="num-btn" onclick="tekanAngka('9')">9</button>
-            <button class="num-btn" onclick="hapusSatu()" style="background:#f39c12; color:white;">⌫</button>
             <button class="num-btn" onclick="tekanAngka('0')">0</button>
-            <button class="num-btn" onclick="cekLogin()" style="background:#2ecc71; color:white;">✅</button>
+            <button class="num-btn" onclick="hapusSatu()" style="background:#f39c12;">⌫</button>
+            <button class="num-btn" onclick="cekLogin()" style="background:#2ecc71;">✅</button>
         </div>
     </div>
 </div>
 
-        <style>
-            .num-btn {
-                width: 70px;
-                height: 70px;
-                border-radius: 15px;
-                border: none;
-                background: #f8f9fa;
-                color: #333;
-                font-size: 20px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: 0.2s;
-            }
-
-            .num-btn:active {
-                transform: scale(0.9);
-                background: #ddd;
-            }
-        </style>
+<style>
+    .num-btn {
+        width: 70px; height: 70px; border-radius: 15px; border: none;
+        background: #f8f9fa; color: #333; font-size: 20px; font-weight: bold;
+        cursor: pointer; transition: 0.2s;
+    }
+    .num-btn:active { transform: scale(0.9); background: #ddd; }
+</style>
         <!--pull to refresh not gonna use it since its a web not an app-->
         <!--<div id="pull-to-refresh"
         style="display: none; justify-content: center; align-items: center; padding: 10px; background: #f4f7f6; color: #27ae60; font-weight: bold; width: 100%;">
@@ -869,6 +857,7 @@
 
 
 </html>
+
 
 
 
