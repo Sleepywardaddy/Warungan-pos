@@ -1,12 +1,5 @@
 //firebase db
-// Add these so Firebase can "see" your data
-// AT THE TOP OF index.js
-// Match these names EXACTLY to your 'let' variables
-window.produkList = produkList;
-window.transaksiLog = transaksiLog;
-window.piutangList = piutangList;
-window.logKasMutasi = logKasMutasi;
-window.saldo = saldo;
+
 
 // 1. Inisialisasi status mute saat aplikasi pertama kali dimuat
 let isMuted = localStorage.getItem('appMuted') === 'true';
@@ -3876,6 +3869,7 @@ window.addEventListener('load', async () => {
         console.log("⚠️ Pakai data lokal (Offline).");
     }
 });
+
 
 
 
