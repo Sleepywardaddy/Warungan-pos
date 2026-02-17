@@ -779,48 +779,47 @@
 
   window.sedangSinkron = false;
 
-  // Listen for cloud changes
+  // AUTO-SYNC: When data changes on another phone
   onValue(dbRef, (snapshot) => {
     const data = snapshot.val();
     if (data && !window.sedangSinkron) {
-      window.sedangSinkron = true; 
+      window.sedangSinkron = true; // Close the gate
 
-      // Update the variables in your index.js directly
-      // Note: These names MUST match your 'let' variable names
+      // Update your app's variables directly
       if (typeof produkList !== 'undefined') produkList = data.produk || [];
       if (typeof transaksiLog !== 'undefined') transaksiLog = data.transaksi || [];
       if (typeof piutangList !== 'undefined') piutangList = data.piutang || [];
       if (typeof logKasMutasi !== 'undefined') logKasMutasi = data.mutasi || [];
       if (typeof saldo !== 'undefined') saldo = data.saldo || 0;
 
-      // Refresh your UI
+      // Refresh the screen
       if (typeof renderProduk === 'function') renderProduk();
-      // Add any other render functions you have here
+      if (typeof updateSaldoDisplay === 'function') updateSaldoDisplay();
       
-      console.log("☁️ Cloud Data Downloaded");
+      console.log("☁️ Sync Success");
       
-      setTimeout(() => { window.sedangSinkron = false; }, 1000);
+      setTimeout(() => { window.sedangSinkron = false; }, 1000); // Open gate
     }
   });
 
-  // This is the function saveAllData calls
+  // UPLOAD: Function called by saveAllData()
   window.simpanKeCloud = function(p, t, pi, m, s) {
     if (window.sedangSinkron) return;
-    
     set(dbRef, {
       produk: p,
       transaksi: t,
       piutang: pi,
       mutasi: m,
       saldo: s,
-      time: new Date().getTime()
-    }).then(() => console.log("🚀 Cloud Updated"));
+      lastUpdate: new Date().getTime()
+    }).then(() => console.log("🚀 Sent to Cloud"));
   };
 </script>
     </body>
 
 
 </html>
+
 
 
 
