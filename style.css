@@ -1783,7 +1783,7 @@ html {
     height: 100dvh !important; 
     
     /* Correct property to kill scrolling */
-    overflow: hidden !important; 
+    overflow: auto !important; 
     
     /* Ensures border doesn't add extra height */
     box-sizing: border-box !important; 
@@ -1826,7 +1826,7 @@ html {
         border-top: 2px solid #2ecc71;
         box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         background: #ffffff;
-        overflow: hidden;
+        overflow: auto;
         display: flex;
         flex-direction: column;
         gap: 5px;
