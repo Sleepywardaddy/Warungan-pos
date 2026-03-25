@@ -300,13 +300,15 @@ body {
 .kasir-layout {
     display: flex;
     gap: 20px;
-    text-align: center;
+    height: 100%; /* Pastikan mengikuti tinggi parent */
+    overflow: hidden; /* Biarkan anak-anaknya yang mengatur scroll masing-masing */
 }
 
 .produk-list {
-    flex: 2;
+    flex: 1;
+    overflow-y: auto; /* Scroll hanya untuk daftar produk */
+    height: 100%;
 }
-
 .keranjang {
     flex: 1;
     background: white;
